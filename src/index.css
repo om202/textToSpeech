@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+audio {
+  background-color: #c3e1ff;
+  border: none;
+  border-radius: 5px;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #c3e1ff;
+}
