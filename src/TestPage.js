@@ -2,15 +2,22 @@ import React, { useRef, useState } from "react";
 import synth from "./speechSDK";
 import getVoiceData from "./API";
 
-import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
+import {
+  ArrowRight,
+  ArrowLeft,
+} from "react-bootstrap-icons";
 
 const TestPage = () => {
   const [loading, setLoading] = useState(false);
   const [audio, setAudio] = useState("");
   const VoiceData = getVoiceData("en-US");
-  const [voiceName, setVoiceName] = useState(VoiceData[0].ShortName);
-  const [currentGender, setCurrentGender] = useState(null);
-  const [currentStyleList, setCurrentStyleList] = useState([]);
+  const [voiceName, setVoiceName] = useState(VoiceData?.[0]?.ShortName);
+  const [currentStyleList, setCurrentStyleList] = useState(
+    VoiceData?.[0]?.StyleList
+  );
+  const [selectedStyle, setSelectedStyle] = useState(
+    VoiceData?.[0]?.StyleList?.[0] || ""
+  );
   const [text, setText] = useState("This is default text.");
 
   const selectVoiceEl = useRef(null);
@@ -21,8 +28,10 @@ const TestPage = () => {
     const voiceSpec = {
       lang: "en-US",
       voice: voiceName,
-      style: "happy",
+      style: selectedStyle || "neutral",
     };
+
+    console.log(voiceSpec);
 
     synth(text, voiceSpec)
       .then((audio) => {
@@ -37,27 +46,23 @@ const TestPage = () => {
   const buttonNext = () => {
     const select = selectVoiceEl.current;
     const selectedIndex = select.selectedIndex;
-    console.log("index", selectedIndex);
     const nextOption = select.options[selectedIndex + 1];
     let data;
 
     if (nextOption) {
       select.selectedIndex = selectedIndex + 1;
-      console.log("selectedIndex Next", select.selectedIndex);
       data = JSON.parse(nextOption.value);
     } else {
       data = JSON.parse(select.options[0].value);
       select.selectedIndex = 0;
     }
     setVoiceName(data.ShortName);
-    setCurrentGender(data.Gender);
     setCurrentStyleList(data.StyleList);
   };
 
   const updateData = (value) => {
     const data = JSON.parse(value);
     setVoiceName(data.ShortName);
-    setCurrentGender(data.Gender);
     setCurrentStyleList(data.StyleList);
   };
 
@@ -76,7 +81,6 @@ const TestPage = () => {
       select.selectedIndex = optionsLength - 1;
     }
     setVoiceName(data.ShortName);
-    setCurrentGender(data.Gender);
     setCurrentStyleList(data.StyleList);
   };
 
@@ -87,9 +91,6 @@ const TestPage = () => {
     >
       <div className="card-body">
         <h2 className="card-title mb-5">Text to Speech</h2>
-        <div className="row mb-4 g-2 g-md-3 g-lg-4">
-          Gender: {currentGender}
-        </div>
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
           <div className="col-2 mb-2">
             <button
@@ -125,13 +126,18 @@ const TestPage = () => {
         </div>
         {currentStyleList && currentStyleList.length > 0 && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
-            <select className="form-select">
-              {currentStyleList.map((style) => (
-                <option key={style} value={style}>
-                  {style}
-                </option>
-              ))}
-            </select>
+            <div className="col">
+              <select
+                className="form-select"
+                onChange={(e) => setSelectedStyle(e.target.value)}
+              >
+                {currentStyleList.map((style) => (
+                  <option key={style} value={style}>
+                    {style}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         )}
         <textarea
