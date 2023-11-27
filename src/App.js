@@ -1,11 +1,15 @@
-import TestPage from './TestPage';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Nav from "./API/Nav";
+import Home from "./Home";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <div className='m-0 container-fluid'>
-      <TestPage />
-    </div>
+    <>
+      <Nav />
+      <div className="container-fluid vh-100 bg-light">
+        <Home />
+      </div>
+    </>
   );
 }
 

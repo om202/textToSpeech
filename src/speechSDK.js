@@ -3,9 +3,10 @@ import {
   SpeechSynthesizer,
 } from "microsoft-cognitiveservices-speech-sdk";
 
+
 const speechConfig = SpeechConfig.fromSubscription(
-  "e3895bf8627441649d56856c622e278d",
-  "eastus"
+  process.env.REACT_APP_AZURE_KEY,
+  process.env.REACT_APP_AZURE_AREA,
 );
 
 /**

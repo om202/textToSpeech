@@ -1,16 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import synth from "./speechSDK";
 import getVoiceData from "./API";
+import { Languages } from "./API/languages";
 
-import {
-  ArrowRight,
-  ArrowLeft,
-} from "react-bootstrap-icons";
+import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
 
-const TestPage = () => {
+const Home = () => {
   const [loading, setLoading] = useState(false);
   const [audio, setAudio] = useState("");
-  const VoiceData = getVoiceData("en-US");
+  const [VoiceData, setVoiceData] = useState(getVoiceData());
+  const [language, setLanguage] = useState("en-US");
   const [voiceName, setVoiceName] = useState(VoiceData?.[0]?.ShortName);
   const [currentStyleList, setCurrentStyleList] = useState(
     VoiceData?.[0]?.StyleList
@@ -19,14 +18,21 @@ const TestPage = () => {
     VoiceData?.[0]?.StyleList?.[0] || ""
   );
   const [text, setText] = useState("This is default text.");
+  const [resultText, setResultText] = useState("");
 
   const selectVoiceEl = useRef(null);
+
+  useEffect(() => {
+    const data = getVoiceData(language);
+    setVoiceData(data);
+    setVoiceName(data?.[0]?.ShortName);
+  }, [language]);
 
   const getAudio = () => {
     setLoading(true);
 
     const voiceSpec = {
-      lang: "en-US",
+      lang: language,
       voice: voiceName,
       style: selectedStyle || "neutral",
     };
@@ -41,6 +47,8 @@ const TestPage = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    setResultText(`${voiceName}`);
   };
 
   const buttonNext = () => {
@@ -86,11 +94,27 @@ const TestPage = () => {
 
   return (
     <div
-      className="container p-2 p-md-3 p-lg-4 mt-4"
-      style={{ maxWidth: "40rem" }}
+      className="container-fluid p-2 p-md-5 p-lg-5"
+      style={{ maxWidth: "748px" }}
     >
       <div className="card-body">
         <h2 className="card-title mb-5">Text to Speech</h2>
+        {Languages && (
+          <div className="row mb-4 g-2 g-md-3 g-lg-4">
+            <div className="col">
+              <select
+                className="form-select"
+                onChange={(e) => setLanguage(e.target.value)}
+              >
+                {Languages.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        )}
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
           <div className="col-2 mb-2">
             <button
@@ -155,12 +179,14 @@ const TestPage = () => {
           Create Speech
         </button>
         {loading && (
-          <div className="mt-4 d-flex justify-content-center">
+          <div className="mt-5 d-flex justify-content-center">
             <span className="sr-only">Processing...</span>
           </div>
         )}
         {audio && !loading && (
-          <div className="mt-4">
+          <div className="mt-5">
+            <span className="fw-bold">Result for: </span>
+            <span>{resultText}</span>
             <audio src={audio} controls="controls" className="w-100">
               {" "}
               Your browser does not support audio{" "}
@@ -179,4 +205,4 @@ const TestPage = () => {
   );
 };
 
-export default TestPage;
+export default Home;
