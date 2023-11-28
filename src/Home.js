@@ -98,7 +98,7 @@ const Home = () => {
       style={{ maxWidth: "748px" }}
     >
       <div className="card-body">
-        <h1 className="card-title mb-5 display-6">Realistic AI Voice Generatorgit</h1>
+        <h1 className="card-title mb-5 display-6">Realistic AI Voice Generator</h1>
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
