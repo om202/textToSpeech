@@ -31,7 +31,6 @@ const audioSSML = (
       </mstts:express-as>
     </voice>
   </speak>`;
-  console.log(ssml.toString());
   return ssml;
 };
 

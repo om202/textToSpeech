@@ -37,8 +37,6 @@ const Home = () => {
       style: selectedStyle || "neutral",
     };
 
-    console.log(voiceSpec);
-
     synth(text, voiceSpec)
       .then((audio) => {
         setAudio(audio);
@@ -167,7 +165,7 @@ const Home = () => {
         <textarea
           style={{ resize: "vertical" }}
           className="form-control"
-          placeholder="Enter text to speak"
+          placeholder="Welcome to Voice Guru."
           onChange={(e) => setText(e.target.value)}
         />
         <button
@@ -176,7 +174,7 @@ const Home = () => {
           className="mt-4 btn btn-primary w-100"
           onClick={() => getAudio()}
         >
-          Create Speech
+          Generate Voice
         </button>
         {loading && (
           <div className="mt-5 d-flex justify-content-center">
@@ -185,7 +183,7 @@ const Home = () => {
         )}
         {audio && !loading && (
           <div className="mt-5">
-            <span className="fw-bold">Result for: </span>
+            <span className="fw-bold">Result : </span>
             <span>{resultText}</span>
             <audio src={audio} controls="controls" className="w-100">
               {" "}
@@ -196,7 +194,7 @@ const Home = () => {
               download="audio.wav"
               className="btn btn-success mt-3 w-100"
             >
-              Download Audio
+              Download Audio (WAV)
             </a>
           </div>
         )}
