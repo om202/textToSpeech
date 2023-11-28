@@ -3,9 +3,11 @@ import { Magic } from "react-bootstrap-icons";
 
 const Nav = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-2 mb-4">
       <div className="container-fluid">
-        <span className="navbar-brand mb-0 h1"><Magic/> Voice Guru</span>
+        <div className="navbar-brand">
+          <img src='logo.png' alt="logo" width={"48px"} className="me-2"/> <span>Voice Guru</span>
+        </div>
       </div>
     </nav>
   );

@@ -7,3 +7,9 @@ audio {
 audio::-webkit-media-controls-panel {
   background-color: #c3e1ff;
 }
+
+.btn-gradient {
+  background: linear-gradient(to bottom, rgb(0, 191,251), rgb(0, 102, 205));
+  border: none !important;
+  color: white;
+}

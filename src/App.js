@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <Nav />
-      <div className="container-fluid vh-100 bg-light">
+      <div className="container-fluid vh-100">
         <Home />
       </div>
     </>

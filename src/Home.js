@@ -94,11 +94,11 @@ const Home = () => {
 
   return (
     <div
-      className="container-fluid p-2 p-md-5 p-lg-5"
+      className="container-fluid p-3 p-md-5 p-lg-5"
       style={{ maxWidth: "748px" }}
     >
       <div className="card-body">
-        <h2 className="card-title mb-5">Text to Speech</h2>
+        <h1 className="card-title mb-5 display-6">Realistic AI Voice Generatorgit</h1>
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">

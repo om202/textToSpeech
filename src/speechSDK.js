@@ -23,7 +23,8 @@ const audioSSML = (
   const name = voiceSpec["voice"] || "en-US-JennyNeural";
   const style = voiceSpec["style"] || "neutral";
 
-  const ssml =  `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"  xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${lang}">
+  const ssml =  `
+  <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"  xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${lang}">
     <voice name="${name}">
       <mstts:express-as style="${style}">
         ${text}
