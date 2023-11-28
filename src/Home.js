@@ -17,7 +17,7 @@ const Home = () => {
   const [selectedStyle, setSelectedStyle] = useState(
     VoiceData?.[0]?.StyleList?.[0] || ""
   );
-  const [text, setText] = useState("This is default text.");
+  const [text, setText] = useState("Welcome to Voice Guru.");
   const [resultText, setResultText] = useState("");
 
   const selectVoiceEl = useRef(null);
@@ -119,10 +119,10 @@ const Home = () => {
           <div className="col-2 mb-2">
             <button
               type="button"
-              className="btn btn-primary w-100"
+              className="btn btn-light w-100"
               onClick={() => buttonPrev()}
             >
-              <ArrowLeft />
+              <ArrowLeft className="lead"/>
             </button>
           </div>
           <div className="col-8 mb-2">
@@ -141,10 +141,10 @@ const Home = () => {
           <div className="col-2">
             <button
               type="button"
-              className="btn btn-primary w-100"
+              className="btn btn-light w-100"
               onClick={() => buttonNext()}
             >
-              <ArrowRight />
+              <ArrowRight className="lead"/>
             </button>
           </div>
         </div>
