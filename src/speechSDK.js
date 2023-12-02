@@ -1,5 +1,7 @@
 import {
   SpeechConfig,
+  AudioConfig,
+  SpeechRecognizer,
   SpeechSynthesizer,
 } from "microsoft-cognitiveservices-speech-sdk";
 
@@ -64,4 +66,27 @@ const synth = async (text, voiceSpec) => {
   );
 };
 
-export default synth;
+const transcribeSpeech = () => {
+  const speechConfig = SpeechConfig.fromSubscription(
+    process.env.REACT_APP_AZURE_KEY,
+    process.env.REACT_APP_AZURE_AREA
+  );
+
+  const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
+  const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
+
+  recognizer.recognizeOnceAsync(
+    (result) => {
+      console.log(result.text);
+      recognizer.close();
+    },
+    (err) => {
+      console.log(err);
+      recognizer.close();
+    }
+  );
+};
+
+const speechSDK = { synth, transcribeSpeech };
+
+export default speechSDK;

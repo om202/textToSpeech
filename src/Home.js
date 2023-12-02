@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import synth from "./speechSDK";
+import speechSDK from "./speechSDK";
 import getVoiceData from "./API";
+import { Microphone } from "./Microphone";
 import { Languages } from "./API/languages";
 
 import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
@@ -37,7 +38,8 @@ const Home = () => {
       style: selectedStyle || "neutral",
     };
 
-    synth(text, voiceSpec)
+    speechSDK
+      .synth(text, voiceSpec)
       .then((audio) => {
         setAudio(audio);
         setLoading(false);
@@ -93,10 +95,12 @@ const Home = () => {
   return (
     <div
       className="container-fluid p-3 p-md-5 p-lg-5"
-      style={{ maxWidth: "748px" }}
+      style={{ maxWidth: "748px", marginTop: "80px" }}
     >
       <div className="card-body">
-        <h1 className="card-title mb-5 display-6">Realistic AI Voice Generator</h1>
+        <h1 className="card-title mb-5 display-6">
+          Realistic AI Voice Generator
+        </h1>
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
@@ -120,7 +124,7 @@ const Home = () => {
               className="btn btn-light w-100"
               onClick={() => buttonPrev()}
             >
-              <ArrowLeft className="lead"/>
+              <ArrowLeft className="lead" />
             </button>
           </div>
           <div className="col-8 mb-2">
@@ -142,7 +146,7 @@ const Home = () => {
               className="btn btn-light w-100"
               onClick={() => buttonNext()}
             >
-              <ArrowRight className="lead"/>
+              <ArrowRight className="lead" />
             </button>
           </div>
         </div>
@@ -162,12 +166,19 @@ const Home = () => {
             </div>
           </div>
         )}
-        <textarea
-          style={{ resize: "vertical" }}
-          className="form-control"
-          placeholder="Welcome to Voice Guru."
-          onChange={(e) => setText(e.target.value)}
-        />
+        <div className="row">
+          <div className="col-11">
+            <textarea
+              style={{ resize: "vertical" }}
+              className="form-control col-10"
+              placeholder="Welcome to Voice Guru."
+              onChange={(e) => setText(e.target.value)}
+            />
+          </div>
+          <div className="col-1">
+            <Microphone />
+          </div>
+        </div>
         <button
           disabled={loading}
           type="button"
