@@ -1,14 +1,18 @@
-import { useState } from "react";
 import { MicFill } from "react-bootstrap-icons";
 import speechSDK from "./speechSDK";
+import { useSelector, useDispatch } from "react-redux";
+import { setSpeechToTextRecording } from "./services/speechToTextReducer";
 
 export const Microphone = () => {
-  const [isRecording, setIsRecording] = useState(false);
+  const dispatch = useDispatch();
+  const isRecording = useSelector((state) => state.speechToText.recording);
 
   const handleMicrophoneClick = () => {
-    setIsRecording(!isRecording);
+    dispatch(setSpeechToTextRecording(!isRecording));
     if (!isRecording) {
       speechSDK.transcribeSpeech();
+    } else {
+      speechSDK.stopTranscribeSpeech();
     }
   };
 
