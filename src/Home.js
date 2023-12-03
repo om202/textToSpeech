@@ -61,6 +61,10 @@ const Home = () => {
   }, [language]);
 
   const getAudio = () => {
+    if (!text) {
+      window.alert("Please enter text!");
+      return;
+    }
     setLoading(true);
 
     const voiceSpec = {
