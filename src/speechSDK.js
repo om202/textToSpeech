@@ -4,14 +4,16 @@ import {
   SpeechRecognizer,
   SpeechSynthesizer,
 } from "microsoft-cognitiveservices-speech-sdk";
-import {store} from "./services/store";
+import { store } from "./services/store";
 import { setSpeechToText } from "./services/speechToTextReducer";
-
 
 const speechConfig = SpeechConfig.fromSubscription(
   process.env.REACT_APP_AZURE_KEY,
-  process.env.REACT_APP_AZURE_AREA,
+  process.env.REACT_APP_AZURE_AREA
 );
+
+const spechToTextSpec = AudioConfig.fromDefaultMicrophoneInput();
+let speechToTextRecognizer;
 
 /**
  * @param {string} text
@@ -19,15 +21,12 @@ const speechConfig = SpeechConfig.fromSubscription(
  * @returns {string}
  **/
 
-const audioSSML = (
-  text = "Hello World",
-  voiceSpec,
-) => {
+const audioSSML = (text = "Hello World", voiceSpec) => {
   const lang = voiceSpec["lang"] || "en-US";
   const name = voiceSpec["voice"] || "en-US-JennyNeural";
   const style = voiceSpec["style"] || "neutral";
 
-  const ssml =  `
+  const ssml = `
   <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"  xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${lang}">
     <voice name="${name}">
       <mstts:express-as style="${style}">
@@ -69,27 +68,23 @@ const synth = async (text, voiceSpec) => {
 };
 
 const transcribeSpeech = () => {
-  const speechConfig = SpeechConfig.fromSubscription(
-    process.env.REACT_APP_AZURE_KEY,
-    process.env.REACT_APP_AZURE_AREA
-  );
-
-  const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-  const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
-
-  recognizer.recognizeOnceAsync(
-    (result) => {
-      console.log(result.text);
-      store.dispatch(setSpeechToText(result.text));
-      recognizer.close();
-    },
-    (err) => {
-      console.log(err);
-      recognizer.close();
+  const language = store.getState().textToSpeech.language;
+  speechConfig.speechRecognitionLanguage = language;
+  speechToTextRecognizer = new SpeechRecognizer(speechConfig, spechToTextSpec);
+  speechToTextRecognizer.startContinuousRecognitionAsync();
+  let result = "";
+  speechToTextRecognizer.recognized = (s, e) => {
+    if (e.result.text) {
+      result += " " + e.result.text;
     }
-  );
+    store.dispatch(setSpeechToText(result));
+  };
 };
 
-const speechSDK = { synth, transcribeSpeech };
+const stopTranscribeSpeech = () => {
+  speechToTextRecognizer.stopContinuousRecognitionAsync();
+};
+
+const speechSDK = { synth, transcribeSpeech, stopTranscribeSpeech };
 
 export default speechSDK;

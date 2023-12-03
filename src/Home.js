@@ -5,6 +5,7 @@ import { Microphone } from "./Microphone";
 import { Languages } from "./API/languages";
 import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
+import autosize from "autosize";
 import {
   setTextToSpeechLanguage,
   setTextToSpeechSpeech,
@@ -20,15 +21,38 @@ const Home = () => {
   const [selectedStyle, setSelectedStyle] = useState(
     VoiceData?.[0]?.StyleList?.[0] || ""
   );
-  const [text, setText] = useState("Welcome to Voice Guru.");
+  const [text, setText] = useState("");
   const [resultText, setResultText] = useState("");
   const selectVoiceEl = useRef(null);
+  let isFirstChange = useRef(true);
 
   // global state
   const dispatch = useDispatch();
   const transcribedText = useSelector((state) => state.speechToText.text);
+  const isRecording = useSelector((state) => state.speechToText.recording);
   const language = useSelector((state) => state.textToSpeech.language);
   const audio = useSelector((state) => state.textToSpeech.speech);
+
+  useEffect(() => {
+    if (isFirstChange.current) {
+      transcribedText && setText((prevText) => prevText + transcribedText);
+      isFirstChange.current = false;
+    } else {
+      transcribedText && setText(transcribedText);
+    }
+  }, [transcribedText]);
+
+  useEffect(() => {
+    if (!isRecording) {
+      isFirstChange.current = true;
+    }
+  }, [isRecording]);
+
+  useEffect(() => {
+    const textarea = document.querySelector("#inputTextArea");
+    autosize.update(textarea);
+    autosize(textarea);
+  }, [text]);
 
   useEffect(() => {
     const data = getVoiceData(language);
@@ -106,14 +130,16 @@ const Home = () => {
     >
       <div className="card-body">
         <h1 className="card-title mb-5 display-6">
-          {transcribedText || "Realistic AI Voice Generator"}
+          Realistic AI Voice Generator
         </h1>
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
               <select
                 className="form-select"
-                onChange={(e) => dispatch(setTextToSpeechLanguage(language))}
+                onChange={(e) =>
+                  dispatch(setTextToSpeechLanguage(e.target.value))
+                }
               >
                 {Languages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
@@ -173,16 +199,18 @@ const Home = () => {
             </div>
           </div>
         )}
-        <div className="row">
-          <div className="col-11">
+        <div className="row mb-4 g-2 g-md-3 g-lg-4">
+          <div className="col-10 mb-2">
             <textarea
-              style={{ resize: "vertical" }}
+              style={{ minHeight: "64px", maxHeight: "192px", overflow: 'auto', resize: "none"}}
               className="form-control col-10"
-              placeholder="Welcome to Voice Guru."
+              id="inputTextArea"
+              placeholder={text}
+              value={text}
               onChange={(e) => setText(e.target.value)}
             />
           </div>
-          <div className="col-1">
+          <div className="col-2">
             <Microphone />
           </div>
         </div>
