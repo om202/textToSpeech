@@ -49,8 +49,10 @@ const Home = () => {
   }, [isRecording]);
 
   useEffect(() => {
-    autosize(document.querySelector("#inputTextArea"));
-  }, [text.length]);
+    const textarea = document.querySelector("#inputTextArea");
+    autosize.update(textarea);
+    autosize(textarea);
+  }, [text]);
 
   useEffect(() => {
     const data = getVoiceData(language);
@@ -200,7 +202,7 @@ const Home = () => {
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
           <div className="col-10 mb-2">
             <textarea
-              style={{ minHeight: "64px", overflow: "scroll" }}
+              style={{ minHeight: "64px", maxHeight: "192px", overflow: 'auto', resize: "none"}}
               className="form-control col-10"
               id="inputTextArea"
               placeholder={text}
