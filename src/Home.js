@@ -3,14 +3,16 @@ import speechSDK from "./speechSDK";
 import getVoiceData from "./API";
 import { Microphone } from "./Microphone";
 import { Languages } from "./API/languages";
-
 import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setTextToSpeechLanguage,
+  setTextToSpeechSpeech,
+} from "./services/textToSpeechReducer";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [audio, setAudio] = useState("");
   const [VoiceData, setVoiceData] = useState(getVoiceData());
-  const [language, setLanguage] = useState("en-US");
   const [voiceName, setVoiceName] = useState(VoiceData?.[0]?.ShortName);
   const [currentStyleList, setCurrentStyleList] = useState(
     VoiceData?.[0]?.StyleList
@@ -20,8 +22,13 @@ const Home = () => {
   );
   const [text, setText] = useState("Welcome to Voice Guru.");
   const [resultText, setResultText] = useState("");
-
   const selectVoiceEl = useRef(null);
+
+  // global state
+  const dispatch = useDispatch();
+  const transcribedText = useSelector((state) => state.speechToText.text);
+  const language = useSelector((state) => state.textToSpeech.language);
+  const audio = useSelector((state) => state.textToSpeech.speech);
 
   useEffect(() => {
     const data = getVoiceData(language);
@@ -41,7 +48,7 @@ const Home = () => {
     speechSDK
       .synth(text, voiceSpec)
       .then((audio) => {
-        setAudio(audio);
+        dispatch(setTextToSpeechSpeech(audio));
         setLoading(false);
       })
       .catch((error) => {
@@ -99,14 +106,14 @@ const Home = () => {
     >
       <div className="card-body">
         <h1 className="card-title mb-5 display-6">
-          Realistic AI Voice Generator
+          {transcribedText || "Realistic AI Voice Generator"}
         </h1>
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
               <select
                 className="form-select"
-                onChange={(e) => setLanguage(e.target.value)}
+                onChange={(e) => dispatch(setTextToSpeechLanguage(language))}
               >
                 {Languages.map((lang) => (
                   <option key={lang.code} value={lang.code}>

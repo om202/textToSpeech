@@ -4,6 +4,8 @@ import {
   SpeechRecognizer,
   SpeechSynthesizer,
 } from "microsoft-cognitiveservices-speech-sdk";
+import {store} from "./services/store";
+import { setSpeechToText } from "./services/speechToTextReducer";
 
 
 const speechConfig = SpeechConfig.fromSubscription(
@@ -78,6 +80,7 @@ const transcribeSpeech = () => {
   recognizer.recognizeOnceAsync(
     (result) => {
       console.log(result.text);
+      store.dispatch(setSpeechToText(result.text));
       recognizer.close();
     },
     (err) => {
