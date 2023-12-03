@@ -5,6 +5,7 @@ import { Microphone } from "./Microphone";
 import { Languages } from "./API/languages";
 import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
+import autosize from "autosize";
 import {
   setTextToSpeechLanguage,
   setTextToSpeechSpeech,
@@ -46,6 +47,10 @@ const Home = () => {
       isFirstChange.current = true;
     }
   }, [isRecording]);
+
+  useEffect(() => {
+    autosize(document.querySelector("#inputTextArea"));
+  }, [text.length]);
 
   useEffect(() => {
     const data = getVoiceData(language);
@@ -130,7 +135,9 @@ const Home = () => {
             <div className="col">
               <select
                 className="form-select"
-                onChange={(e) => dispatch(setTextToSpeechLanguage(e.target.value))}
+                onChange={(e) =>
+                  dispatch(setTextToSpeechLanguage(e.target.value))
+                }
               >
                 {Languages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
@@ -190,17 +197,18 @@ const Home = () => {
             </div>
           </div>
         )}
-        <div className="row">
-          <div className="col-11">
+        <div className="row mb-4 g-2 g-md-3 g-lg-4">
+          <div className="col-10 mb-2">
             <textarea
-              style={{ resize: "vertical" }}
+              style={{ minHeight: "64px", overflow: "scroll" }}
               className="form-control col-10"
+              id="inputTextArea"
               placeholder={text}
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
           </div>
-          <div className="col-1">
+          <div className="col-2">
             <Microphone />
           </div>
         </div>

@@ -18,7 +18,7 @@ export const Microphone = () => {
 
   return (
     <button
-      className="btn btn-primary"
+      className="btn btn-light w-100"
       onClick={() => handleMicrophoneClick()}
       style={{ backgroundColor: isRecording && "crimson", border: "none" }}
     >
