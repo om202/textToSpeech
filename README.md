@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Voice Guru: Instant AI-Powered Human-Like Voice Generation
+Voice Guru is a revolutionary AI-powered service designed to generate human-like voices instantly. Our platform offers an exceptionally user-friendly interface, ensuring a seamless and intuitive experience. Ideal for developers, content creators, and businesses, Voice Guru is at the forefront of digital voice technology.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Development and Contribution
 
-## Available Scripts
+Our team is dedicated to the ongoing development of Voice Guru. We're currently in the active development phase and welcome contributions from the community. If you're passionate about AI and voice technology, we'd love your input!
 
-In the project directory, you can run:
+Please note that as we're still in the early stages, you might encounter some bugs. Your feedback during this phase is invaluable.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This project is built using a variety of modern web technologies and libraries. Contributors should be familiar with:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **JavaScript**: The primary programming language used.
+- **React (v18.2.0)**: For building the user interface.
+- **Redux (v4.2.1) and React Redux (v8.1.3)**: For state management.
+- **@reduxjs/toolkit (v1.9.7)**: For efficient Redux development.
+- **Bootstrap (v5.3.2)**: For styling and responsive design.
+- **React Bootstrap Icons (v1.10.3)**: For incorporating Bootstrap icons.
+- **React Router Dom (v6.20.0)**: For application routing.
+- **Dotenv (v16.3.1)**: For managing environment variables.
+- **Microsoft Cognitive Services Speech SDK (v1.33.1)**: For speech processing capabilities.
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To contribute to this project, follow these steps:
 
-### `npm run build`
+1. Clone the repository to your local machine.
+2. Run `npm install` to install all the dependencies.
+3. Use `npm start` to launch the application locally.
+4. To build the project, use `npm run build`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Contribution Guidelines
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+We welcome contributions from the community. Here are some ways you can contribute:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Bug Reports**: Report issues and bugs you find.
+- **Feature Requests**: Suggest new features or improvements.
+- **Pull Requests**: Submit pull requests with bug fixes or new features.
 
-### `npm run eject`
+Feel free to contriubte your way!
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Early Interface Preview
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Below is a glimpse of the Voice Guru user interface. Our design focuses on simplicity and efficiency, allowing users to interact with the AI voice generation features easily.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![User Interface of Voice Guru](./public/ui.png)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
