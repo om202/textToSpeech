@@ -203,7 +203,7 @@ const Home = () => {
             </div>
           </div>
         )}
-        <div className="row mb-4 g-2 g-md-3 g-lg-4">
+        <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-10 mb-2">
             <textarea
               style={{ minHeight: "64px", maxHeight: "192px", overflow: 'auto', resize: "none"}}
@@ -227,15 +227,13 @@ const Home = () => {
           Generate Voice
         </button>
         {loading && (
-          <div className="mt-5 d-flex justify-content-center">
+          <div className="mt-4 d-flex justify-content-center">
             <span className="sr-only">Processing...</span>
           </div>
         )}
         {audio && !loading && (
-          <div className="mt-5">
-            <span className="fw-bold">Result : </span>
-            <span>{resultText}</span>
-            <audio src={audio} controls="controls" className="w-100">
+          <div className="mt-4">
+            <audio src={audio} controls="controls" className="w-100 mt-3">
               {" "}
               Your browser does not support audio{" "}
             </audio>

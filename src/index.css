@@ -1,3 +1,7 @@
+:root {
+  --blue: #0059ff;
+}
+
 audio {
   background-color: #c3e1ff;
   border: none;
