@@ -10,8 +10,10 @@ import {
   setTextToSpeechLanguage,
   setTextToSpeechSpeech,
 } from "./services/textToSpeechReducer";
+import { toast } from "react-toastify";
 
 const Home = () => {
+  const delay = 120000; // 1 minute in milliseconds
   const [loading, setLoading] = useState(false);
   const [VoiceData, setVoiceData] = useState(getVoiceData());
   const [voiceName, setVoiceName] = useState(VoiceData?.[0]?.ShortName);
@@ -28,6 +30,9 @@ const Home = () => {
 
   // global state
   const dispatch = useDispatch();
+  const storedLastClickTime =
+    parseInt(localStorage.getItem("lastClickTime")) || 0;
+  const [lastClickTime, setLastClickTime] = useState(storedLastClickTime);
   const transcribedText = useSelector((state) => state.speechToText.text);
   const isRecording = useSelector((state) => state.speechToText.recording);
   const language = useSelector((state) => state.textToSpeech.language);
@@ -61,10 +66,21 @@ const Home = () => {
   }, [language]);
 
   const getAudio = () => {
+    const currentTime = Date.now();
     if (!text) {
-      window.alert("Please enter text!");
+      toast.error("Enter some text!");
       return;
     }
+
+    if (text.length > 120) {
+      toast.error(
+        "Text exceeds 120 characters! Current length: " +
+          text.length +
+          " characters"
+      );
+      return;
+    }
+
     setLoading(true);
 
     const voiceSpec = {
@@ -73,15 +89,26 @@ const Home = () => {
       style: selectedStyle || "neutral",
     };
 
-    speechSDK
-      .synth(text, voiceSpec)
-      .then((audio) => {
-        dispatch(setTextToSpeechSpeech(audio));
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (currentTime - lastClickTime >= delay) {
+      speechSDK
+        .synth(text, voiceSpec)
+        .then((audio) => {
+          dispatch(setTextToSpeechSpeech(audio));
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      setLastClickTime(currentTime);
+      localStorage.setItem("lastClickTime", currentTime.toString());
+    } else {
+      toast.info(
+        `Please wait ${Math.round(
+          (delay - (currentTime - lastClickTime)) / 1000
+        )} seconds before generating another audio!`
+      );
+      setLoading(false);
+    }
 
     setResultText(`${voiceName}`);
   };
@@ -155,16 +182,7 @@ const Home = () => {
           </div>
         )}
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
-          <div className="col-2 mb-2">
-            <button
-              type="button"
-              className="btn btn-light w-100"
-              onClick={() => buttonPrev()}
-            >
-              <ArrowLeft className="lead" />
-            </button>
-          </div>
-          <div className="col-8 mb-2">
+          <div className="col-12 mb-2">
             <select
               ref={selectVoiceEl}
               className="form-select w-100"
@@ -177,21 +195,13 @@ const Home = () => {
               ))}
             </select>
           </div>
-          <div className="col-2">
-            <button
-              type="button"
-              className="btn btn-light w-100"
-              onClick={() => buttonNext()}
-            >
-              <ArrowRight className="lead" />
-            </button>
-          </div>
         </div>
         {currentStyleList && currentStyleList.length > 0 && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
               <select
                 className="form-select"
+                style={{ textTransform: "capitalize" }}
                 onChange={(e) => setSelectedStyle(e.target.value)}
               >
                 {currentStyleList.map((style) => (
@@ -206,7 +216,13 @@ const Home = () => {
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-10 mb-2">
             <textarea
-              style={{ minHeight: "64px", maxHeight: "192px", overflow: 'auto', resize: "none"}}
+              style={{
+                minHeight: "64px",
+                maxHeight: "192px",
+                overflow: "auto",
+                resize: "none",
+              }}
+              // maxLength={120}
               className="form-control col-10"
               id="inputTextArea"
               placeholder={text}

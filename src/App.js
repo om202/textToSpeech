@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./Register";
 import { Provider } from "react-redux";
 import { store } from "./services/store";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Routes>
         </div>
+        <ToastContainer />
       </Router>
     </Provider>
   );

@@ -18,24 +18,6 @@ const Nav = () => {
           <img src="logo.png" alt="logo" width={"48px"} className="me-2" />{" "}
           <span>Voice Guru</span>
         </div>
-        {location.pathname === "/" && !loginUser && (
-          <div className="d-flex">
-            <button
-              className="btn btn-outline-primary"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-          </div>
-        )}
-        {loginUser && (
-          <div
-            className="rounded-circle d-flex align-items-center justify-content-center"
-            style={{ width: "40px", height: "40px", border: "1px solid var(--blue)" }}
-          >
-            {loginUser}
-          </div>
-        )}
       </div>
     </nav>
   );
