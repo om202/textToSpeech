@@ -6,8 +6,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Register from "./Register";
 import { Provider } from "react-redux";
 import { store } from "./services/store";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Footer from "./Footer";
+import About from "./About";
 
 function App() {
   return (
@@ -19,8 +21,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </div>
+        <Footer />
         <ToastContainer />
       </Router>
     </Provider>

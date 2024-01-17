@@ -51,7 +51,7 @@ const synth = async (text, voiceSpec) => {
       audioSSML(text, voiceSpec),
       (result) => {
         if (result) {
-          const audioBlob = new Blob([result.audioData], { type: "audio/wav" });
+          const audioBlob = new Blob([result.audioData], { type: "audio/mp3" });
           const audioUrl = URL.createObjectURL(audioBlob);
           synthesizer.close();
           resolve(audioUrl);

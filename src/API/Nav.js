@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 const Nav = () => {
@@ -18,6 +18,7 @@ const Nav = () => {
           <img src="logo.png" alt="logo" width={"48px"} className="me-2" />{" "}
           <span>Voice Guru</span>
         </div>
+        <Link to="/about" className="nav-link">About</Link>
       </div>
     </nav>
   );

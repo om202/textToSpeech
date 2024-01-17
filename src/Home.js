@@ -163,6 +163,7 @@ const Home = () => {
         <h1 className="card-title mb-5 display-6">
           Realistic AI Voice Generator
         </h1>
+        
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
@@ -237,7 +238,8 @@ const Home = () => {
         <button
           disabled={loading}
           type="button"
-          className="mt-4 btn btn-primary w-100"
+          className="mt-4 btn btn-primary w-100 btn-gradient"
+          style={{ height: "3rem", fontSize: "1.1rem" }}
           onClick={() => getAudio()}
         >
           Generate Voice
@@ -255,10 +257,10 @@ const Home = () => {
             </audio>
             <a
               href={audio}
-              download="audio.wav"
+              download="audio.mp3"
               className="btn btn-success mt-3 w-100"
             >
-              Download Audio (WAV)
+              Download (MP3)
             </a>
           </div>
         )}

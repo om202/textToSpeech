@@ -20,7 +20,7 @@ audio::-webkit-media-controls-panel {
 }
 
 .btn-gradient {
-  background: linear-gradient(to bottom, rgb(0, 191,251), rgb(0, 102, 205));
+  background: linear-gradient(to bottom, rgb(0, 177, 230), rgb(0, 151, 228), rgb(0, 110, 220));
   border: none !important;
   color: white;
 }
