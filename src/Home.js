@@ -160,13 +160,12 @@ const Home = () => {
       style={{ maxWidth: "748px", marginTop: "80px" }}
     >
       <div className="card-body">
-        <h1 className="card-title mb-5 display-6">
-          Realistic AI Voice Generator
-        </h1>
-        
+        <h1 className="card-title mb-5 display-6">Free AI Voice Generator</h1>
+
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
+            <div className="mb-2">Choose a Language 🇱🇷</div>
               <select
                 className="form-select"
                 onChange={(e) =>
@@ -184,6 +183,7 @@ const Home = () => {
         )}
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
           <div className="col-12 mb-2">
+            <div className="mb-2">Choose a Voice 😄</div>
             <select
               ref={selectVoiceEl}
               className="form-select w-100"
@@ -200,6 +200,7 @@ const Home = () => {
         {currentStyleList && currentStyleList.length > 0 && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
+              <div className="mb-2">Choose a Style 🎭</div>
               <select
                 className="form-select"
                 style={{ textTransform: "capitalize" }}
@@ -215,7 +216,7 @@ const Home = () => {
           </div>
         )}
         <div className="row g-2 g-md-3 g-lg-4">
-          <div className="col-10 mb-2">
+          <div className="col-10">
             <textarea
               style={{
                 minHeight: "64px",
@@ -226,7 +227,7 @@ const Home = () => {
               // maxLength={120}
               className="form-control col-10"
               id="inputTextArea"
-              placeholder={text}
+              placeholder={"Enter Text 📝"}
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
