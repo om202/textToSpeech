@@ -16,7 +16,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <Nav />
-        <div className="container-fluid vh-100">
+        <div className="container-fluid" style={{minHeight: '100vh', marginBottom: '4rem'}}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import speechSDK from "./speechSDK";
 import getVoiceData from "./API";
-import { Microphone } from "./Microphone";
 import { Languages } from "./API/languages";
-import { ArrowRight, ArrowLeft } from "react-bootstrap-icons";
 import { useSelector, useDispatch } from "react-redux";
 import autosize from "autosize";
 import {
@@ -24,7 +22,6 @@ const Home = () => {
     VoiceData?.[0]?.StyleList?.[0] || ""
   );
   const [text, setText] = useState("");
-  const [resultText, setResultText] = useState("");
   const selectVoiceEl = useRef(null);
   let isFirstChange = useRef(true);
 
@@ -109,47 +106,10 @@ const Home = () => {
       );
       setLoading(false);
     }
-
-    setResultText(`${voiceName}`);
-  };
-
-  const buttonNext = () => {
-    const select = selectVoiceEl.current;
-    const selectedIndex = select.selectedIndex;
-    const nextOption = select.options[selectedIndex + 1];
-    let data;
-
-    if (nextOption) {
-      select.selectedIndex = selectedIndex + 1;
-      data = JSON.parse(nextOption.value);
-    } else {
-      data = JSON.parse(select.options[0].value);
-      select.selectedIndex = 0;
-    }
-    setVoiceName(data.ShortName);
-    setCurrentStyleList(data.StyleList);
   };
 
   const updateData = (value) => {
     const data = JSON.parse(value);
-    setVoiceName(data.ShortName);
-    setCurrentStyleList(data.StyleList);
-  };
-
-  const buttonPrev = () => {
-    const select = selectVoiceEl.current;
-    const selectedIndex = select.selectedIndex;
-    const nextOption = select.options[selectedIndex - 1];
-    const optionsLength = select.options.length;
-    let data;
-
-    if (nextOption) {
-      select.selectedIndex = selectedIndex - 1;
-      data = JSON.parse(nextOption.value);
-    } else {
-      data = JSON.parse(select.options[optionsLength - 1].value);
-      select.selectedIndex = optionsLength - 1;
-    }
     setVoiceName(data.ShortName);
     setCurrentStyleList(data.StyleList);
   };
@@ -165,7 +125,7 @@ const Home = () => {
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
-            <div className="mb-2">Choose a Language 🇱🇷</div>
+              <div className="mb-2">Choose a Language 🇱🇷</div>
               <select
                 className="form-select"
                 onChange={(e) =>
@@ -216,7 +176,7 @@ const Home = () => {
           </div>
         )}
         <div className="row g-2 g-md-3 g-lg-4">
-          <div className="col-10">
+          <div className="col-12">
             <textarea
               style={{
                 minHeight: "64px",
@@ -231,9 +191,6 @@ const Home = () => {
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
-          </div>
-          <div className="col-2">
-            <Microphone />
           </div>
         </div>
         <button
