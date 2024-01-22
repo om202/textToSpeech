@@ -6,10 +6,14 @@ export const auth = createSlice({
     authUser: null,
     authError: null,
     authStatus: null,
+    microsoftAuthGraphData: null,
   },
   reducers: {
     loginSuccess: (state, action) => {
       state.authUser = action.payload;
+    },
+    setMicrosoftAuthGraphData: (state, action) => {
+      state.microsoftAuthGraphData = action.payload;
     },
     loginError: (state, action) => {
       state.authError = action.payload;
@@ -24,6 +28,7 @@ export const {
   loginSuccess,
   loginError,
   setAuthStatus,
+  setMicrosoftAuthGraphData,
 } = auth.actions;
 
 const authReducer = auth.reducer;

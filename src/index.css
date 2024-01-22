@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+:root {
+  --blue: #0059ff;
+  --default-gradient : linear-gradient(to bottom, rgb(0, 177, 230), rgb(0, 151, 228), rgb(0, 110, 220));
+}
+
 audio {
   background-color: #c3e1ff;
   border: none;
@@ -9,7 +21,7 @@ audio::-webkit-media-controls-panel {
 }
 
 .btn-gradient {
-  background: linear-gradient(to bottom, rgb(0, 191,251), rgb(0, 102, 205));
+  background: var(--default-gradient);
   border: none !important;
   color: white;
 }

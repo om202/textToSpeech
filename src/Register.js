@@ -1,6 +1,6 @@
 const Register = () => {
   return (
-    <div className="container-fluid p-3 p-md-5 p-lg-5">
+    <div className="container-fluid p-3 p-md-5 p-lg-5" style={{marginTop: "80px"}}>
       <div className="row">
         <div className="col-md-4 offset-md-4">
         <h1 className="card-title mb-4 display-6">Register</h1>
