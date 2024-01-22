@@ -21,19 +21,29 @@ let speechToTextRecognizer;
  * @returns {string}
  **/
 
-const audioSSML = (text = "Hello World", voiceSpec) => {
-  const lang = voiceSpec["lang"] || "en-US";
-  const name = voiceSpec["voice"] || "en-US-JennyNeural";
-  const style = voiceSpec["style"] || "neutral";
+const audioSSML = (
+  text = "Welcome",
+  {
+    lang = "en-US",
+    voice = "en-US-JennyNeural",
+    style = "neutral",
+    pitch = "medium",
+    speed = "medium",
+  }
+) => {
+  console.log("voiceSpec ???", { lang, voice, style, pitch, speed });
 
   const ssml = `
   <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"  xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${lang}">
-    <voice name="${name}">
+    <voice name="${voice}">
       <mstts:express-as style="${style}">
+      <prosody rate="${pitch}" pitch="${speed}">
         ${text}
+      </prosody>
       </mstts:express-as>
     </voice>
   </speak>`;
+  console.log("ssml", ssml);
   return ssml;
 };
 

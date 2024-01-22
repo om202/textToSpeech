@@ -11,10 +11,12 @@ import {
 import { toast } from "react-toastify";
 
 const Home = () => {
-  const delay = 120000; // 1 minute in milliseconds
+  const delay = 60000; // 1 minute in milliseconds
   const [loading, setLoading] = useState(false);
   const [VoiceData, setVoiceData] = useState(getVoiceData());
   const [voiceName, setVoiceName] = useState(VoiceData?.[0]?.ShortName);
+  const [pitch, setPitch] = useState('medium');
+  const [speed, setSpeed] = useState('medium');
   const [currentStyleList, setCurrentStyleList] = useState(
     VoiceData?.[0]?.StyleList
   );
@@ -24,6 +26,9 @@ const Home = () => {
   const [text, setText] = useState("");
   const selectVoiceEl = useRef(null);
   let isFirstChange = useRef(true);
+
+  const pitchLevelList = ["x-low", "low", "medium", "high", "x-high"];
+  const speedLevelList = ["x-slow", "slow", "medium", "fast", "x-fast"];
 
   // global state
   const dispatch = useDispatch();
@@ -84,6 +89,8 @@ const Home = () => {
       lang: language,
       voice: voiceName,
       style: selectedStyle || "neutral",
+      pitch: pitch,
+      speed: speed,
     };
 
     if (currentTime - lastClickTime >= delay) {
@@ -175,6 +182,40 @@ const Home = () => {
             </div>
           </div>
         )}
+        <div className="row g-2 g-md-3 g-lg-4 mb-4">
+          <div className="col-12">
+            <div className="mb-2">Choose pitch level 🎵</div>
+            <select
+                defaultValue="medium"
+                className="form-select"
+                style={{ textTransform: "capitalize" }}
+                onChange={(e) => setSpeed(e.target.value)}
+              >
+                {pitchLevelList.map((pitch) => (
+                  <option key={pitch} value={pitch}>
+                    {pitch}
+                  </option>
+                ))}
+              </select>
+          </div>
+        </div>
+        <div className="row g-2 g-md-3 g-lg-4 mb-4">
+          <div className="col-12">
+            <div className="mb-2">Choose speed level ⚡</div>
+            <select
+                defaultValue="medium"
+                className="form-select"
+                style={{ textTransform: "capitalize" }}
+                onChange={(e) => setPitch(e.target.value)}
+              >
+                {speedLevelList.map((speed) => (
+                  <option key={speed} value={speed}>
+                    {speed}
+                  </option>
+                ))}
+              </select>
+          </div>
+        </div>
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-12">
             <textarea

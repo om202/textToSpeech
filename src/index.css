@@ -7,6 +7,7 @@ body {
 
 :root {
   --blue: #0059ff;
+  --default-gradient : linear-gradient(to bottom, rgb(0, 177, 230), rgb(0, 151, 228), rgb(0, 110, 220));
 }
 
 audio {
@@ -20,7 +21,7 @@ audio::-webkit-media-controls-panel {
 }
 
 .btn-gradient {
-  background: linear-gradient(to bottom, rgb(0, 177, 230), rgb(0, 151, 228), rgb(0, 110, 220));
+  background: var(--default-gradient);
   border: none !important;
   color: white;
 }

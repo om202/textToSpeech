@@ -35,6 +35,7 @@ const About = () => {
       <p className="card-text">
         <ul style={{ listStyleType: "none" }}>
           <li>⚡ Fast and easy to use</li>
+          <li>🎛️ Adjust pitch and speed of audio</li>
           <li>💼 Free for commercial usage </li>
           <li>🌐 Supports multiple languages</li>
           <li>😄 Offers multiple emotions to select from</li>

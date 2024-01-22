@@ -18,7 +18,9 @@ const Nav = () => {
           <img src="logo.png" alt="logo" width={"48px"} className="me-2" />{" "}
           <span>Voice Guru</span>
         </div>
-        <Link to="/about" className="nav-link">About</Link>
+        <Link to="/about" className="nav-link">
+          About
+        </Link>
       </div>
     </nav>
   );
