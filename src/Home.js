@@ -137,14 +137,14 @@ const Home = () => {
             class="bi bi-award"
             style={{ color: "orange", marginRight: "8px" }}
           ></i>{" "}
-          Best text-to-speech website on the internet
+          Free Text to Speech (TTS) Online
         </h5>
 
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
               <div className="mb-2 label">
-                <i class="bi bi-flag emoji-icon"></i> Choose a Language
+                <i class="bi bi-flag emoji-icon"></i> Select a Language
               </div>
               <select
                 className="form-select my-select"
@@ -164,7 +164,7 @@ const Home = () => {
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
           <div className="col-12 mb-2">
             <div className="mb-2 label">
-              <i class="bi bi-emoji-laughing emoji-icon"></i> Choose a Voice
+              <i class="bi bi-emoji-laughing emoji-icon"></i> Select a Voice
             </div>
             <select
               ref={selectVoiceEl}
@@ -183,7 +183,7 @@ const Home = () => {
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
               <div className="mb-2">
-                <i class="bi bi-layers emoji-icon"></i> Choose a Style
+                <i class="bi bi-layers emoji-icon"></i> Select a Style
               </div>
               <select
                 className="form-select my-select"
@@ -202,8 +202,8 @@ const Home = () => {
         <div className="row g-2 g-md-3 g-lg-4 mb-4">
           <div className="col-12">
             <div className="mb-2 label">
-              <i class="bi bi-music-note-beamed emoji-icon"></i> Choose pitch
-              level
+              <i class="bi bi-music-note-beamed emoji-icon"></i> Select Pitch
+              Level
             </div>
             <select
               defaultValue="medium"
@@ -222,8 +222,8 @@ const Home = () => {
         <div className="row g-2 g-md-3 g-lg-4 mb-4">
           <div className="col-12">
             <div className="mb-2 label">
-              <i class="bi bi-lightning-charge emoji-icon"></i> Choose speed
-              level
+              <i class="bi bi-lightning-charge emoji-icon"></i> Select Speed
+              Level
             </div>
             <select
               defaultValue="medium"
@@ -242,8 +242,8 @@ const Home = () => {
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-12">
             <div className="label mb-2">
-              <i class="bi bi-pencil-square emoji-icon"></i> Write your text
-              here
+              <i class="bi bi-pencil-square emoji-icon"></i> Write Your Text
+              Here
             </div>
             <textarea
               style={{
@@ -289,8 +289,8 @@ const Home = () => {
               download="audio.mp3"
               className="btn btn-success mt-3 w-100 download-btn"
             >
-              <i class="bi bi-download" style={{ marginRight: "8px" }}></i>{" "}
-              Download (MP3)
+              <i class="bi bi-cloud-download-fill" style={{ marginRight: "8px" }}></i>{" "}
+              Download Audio (MP3)
             </a>
           </div>
         )}

@@ -24,6 +24,11 @@ audio::-webkit-media-controls-panel {
   background-color: var(--medium-blue);
 }
 
+a {
+  color: var(--blue);
+  text-decoration: none !important;
+}
+
 .title-icon {
   margin-right: 8px;
   color: var(--blue);
@@ -44,7 +49,6 @@ audio::-webkit-media-controls-panel {
   background-color: rgba(245, 245, 245, 0.5);
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
 }
 
 .btn-gradient {
@@ -55,12 +59,13 @@ audio::-webkit-media-controls-panel {
 
 .download-btn {
   display: flex;
+  font-size: 1.1rem !important;
   align-items: center;
   justify-content: center;
 }
 
 .my-title {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
   display: flex;
   align-items: center;

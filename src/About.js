@@ -10,8 +10,9 @@ const About = () => {
         <img src="logo.png" alt="logo" width={"48px"} className="me-2" /> Voice
         Guru
       </h1>
+      <h3 className="mt-5">📝 About</h3>
       <p className="card-text">
-        Voice Guru is a user-friendly online text-to-speech tool that allows
+        <a href="https://www.voiceguru.io/">Voice Guru</a> is a user-friendly online text-to-speech tool that allows
         users to convert written text into lifelike artificial
         intelligence-generated voices. With a simple interface, users can input
         any text, and the tool transforms it into spoken words, providing a

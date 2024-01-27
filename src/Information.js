@@ -3,7 +3,7 @@ import React from "react";
 const Information = () => {
   return (
     <div className="information-card">
-      <h1>Voice Guru - The Best AI Text-to-Speech Website on the Internet</h1>
+      <h1>Voice Guru - The Best AI Text to Speech Website on the Internet</h1>
       <p>
         Voice Guru helps instantly convert your text to speech. Create
         natural-sounding audio and download it in MP3 format. Voices can be
