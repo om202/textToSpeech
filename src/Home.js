@@ -14,7 +14,8 @@ import { INSIGHTS_CONSTANTS } from "./services/insightsConstants";
 import appInsights from "./services/applicationInsights";
 
 const Home = ({ insights }) => {
-  const delay = 6000; // 6 seconds in milliseconds
+  const DELAY = 6000; // 6 seconds in milliseconds
+  const [homeTimerStart, setHomeTimerStart] = useState(null);
   const [loading, setLoading] = useState(false);
   const [VoiceData, setVoiceData] = useState(getVoiceData());
   const [voiceName, setVoiceName] = useState(VoiceData?.[0]?.ShortName);
@@ -43,28 +44,62 @@ const Home = ({ insights }) => {
   const language = useSelector((state) => state.textToSpeech.language);
   const audio = useSelector((state) => state.textToSpeech.speech);
 
+  // page start event
   useEffect(() => {
+    setHomeTimerStart(Date.now());
+    const PAGE_DATA = {
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      screenResolution: window.screen.width + "x" + window.screen.height,
+    };
+
     fetch("https://ipapi.co/json/")
       .then((response) => response.json())
       .then((data) => {
-        insights.trackPageView({
-          name: "Home",
-          uri: "/",
+        insights.trackEvent({
+          name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_PAGE_LOADED,
           properties: {
             data: {
-              userAgent: navigator.userAgent,
-              language: navigator.language,
-              screenResolution:
-                window.screen.width + "x" + window.screen.height,
+              ...PAGE_DATA,
               locationData: data,
             },
           },
         });
       })
       .catch((error) => {
+        insights.trackEvent({
+          name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_PAGE_LOADED,
+          properties: {
+            data: {
+              ...PAGE_DATA,
+              locationData: "Error fetching location data",
+            },
+          },
+        });
         console.error("Error:", error);
       });
   }, [insights]);
+
+  // page end event
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      const durationInSeconds = (Date.now() - homeTimerStart) / 1000;
+      const minutes = Math.floor(durationInSeconds / 60);
+      const seconds = Math.floor(durationInSeconds % 60);
+      insights.trackEvent({
+        name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_PAGE_SESSION_DURATION,
+        properties: {
+          duration: `${minutes} minutes ${seconds} seconds`,
+        },
+      });
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [insights, homeTimerStart]);
 
   useEffect(() => {
     if (isFirstChange.current) {
@@ -124,7 +159,7 @@ const Home = ({ insights }) => {
       speed: speed,
     };
 
-    if (currentTime - lastClickTime >= delay) {
+    if (currentTime - lastClickTime >= DELAY) {
       speechSDK
         .synth(text, voiceSpec)
         .then((audio) => {
@@ -139,7 +174,7 @@ const Home = ({ insights }) => {
     } else {
       toast.info(
         `Please wait ${Math.round(
-          (delay - (currentTime - lastClickTime)) / 1000
+          (DELAY - (currentTime - lastClickTime)) / 1000
         )} seconds before generating another audio!`
       );
       setLoading(false);
@@ -246,8 +281,8 @@ const Home = ({ insights }) => {
         <div className="row g-2 g-md-3 g-lg-4 mb-4">
           <div className="col-12">
             <div className="mb-2 label">
-              <i className="bi bi-music-note-beamed emoji-icon"></i> Select Pitch
-              Level
+              <i className="bi bi-music-note-beamed emoji-icon"></i> Select
+              Pitch Level
             </div>
             <select
               defaultValue="medium"
@@ -258,7 +293,6 @@ const Home = ({ insights }) => {
                   name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_PITCH,
                   properties: { text: e.target.value },
                 });
-                console.log("PITCH",e.target.value);
                 return setPitch(e.target.value);
               }}
             >
@@ -285,7 +319,6 @@ const Home = ({ insights }) => {
                   name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_SPEED,
                   properties: { text: e.target.value },
                 });
-                console.log("SPEED",e.target.value);
                 return setSpeed(e.target.value);
               }}
             >
@@ -328,8 +361,8 @@ const Home = ({ insights }) => {
           style={{ height: "3rem", fontSize: "1.1rem" }}
           onClick={() => getAudio()}
         >
-          <i className="bi bi-mic-fill" style={{ marginRight: "8px" }}></i> Generate
-          Speech
+          <i className="bi bi-mic-fill" style={{ marginRight: "8px" }}></i>{" "}
+          Generate Speech
         </button>
         {loading && (
           <div className="mt-4 d-flex justify-content-center">

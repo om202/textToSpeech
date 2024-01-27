@@ -1,12 +1,66 @@
 import React, { useEffect } from "react";
+import { INSIGHTS_CONSTANTS } from "./services/insightsConstants";
 
-const About = ({insights}) => {
+const About = ({ insights }) => {
+  const [aboutTimerStart, setAboutTimerStart] = React.useState(null);
+
   useEffect(() => {
-    insights.trackPageView({
-      name: "About",
-      uri: "/about",
-    });
+    setAboutTimerStart(new Date());
+    const PAGE_DATA = {
+      userAgent: navigator.userAgent,
+      language: navigator.language,
+      screenResolution:
+        window.screen.width + "x" + window.screen.height,
+    };
+
+    fetch("https://ipapi.co/json/")
+      .then((response) => response.json())
+      .then((data) => {
+        insights.trackEvent({
+          name: INSIGHTS_CONSTANTS.ABOUT_PAGE.ABOUT_PAGE_LOADED,
+          properties: {
+            data: {
+              ...PAGE_DATA,
+              locationData: data,
+            }
+          },
+        });
+      })
+      .catch((error) => {
+        insights.trackEvent({
+          name: INSIGHTS_CONSTANTS.ABOUT_PAGE.ABOUT_PAGE_LOADED,
+          properties: {
+            data: {
+              ...PAGE_DATA,
+              locationData: "Error fetching location data",
+            },
+          },
+        });
+        console.error("Error:", error);
+      });
   }, [insights]);
+
+  // page end event
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      const durationInSeconds = (Date.now() - aboutTimerStart) / 1000;
+      const minutes = Math.floor(durationInSeconds / 60);
+      const seconds = Math.floor(durationInSeconds % 60);
+      insights.trackEvent({
+        name: INSIGHTS_CONSTANTS.ABOUT_PAGE.ABOUT_PAGE_SESSION_DURATION,
+        properties: {
+          duration: `${minutes} minutes ${seconds} seconds`,
+        },
+      });
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [insights, aboutTimerStart]);
+
   return (
     <div
       className="container-fluid"
@@ -18,11 +72,11 @@ const About = ({insights}) => {
       </h1>
       <h3 className="mt-5">📝 About</h3>
       <p className="card-text">
-        <a href="https://www.voiceguru.io/">Voice Guru</a> is a user-friendly online text-to-speech tool that allows
-        users to convert written text into lifelike artificial
-        intelligence-generated voices. With a simple interface, users can input
-        any text, and the tool transforms it into spoken words, providing a
-        natural and realistic voice experience.
+        <a href="https://www.voiceguru.io/">Voice Guru</a> is a user-friendly
+        online text-to-speech tool that allows users to convert written text
+        into lifelike artificial intelligence-generated voices. With a simple
+        interface, users can input any text, and the tool transforms it into
+        spoken words, providing a natural and realistic voice experience.
       </p>
       <h3 className="mt-5">🔍 Usage Scenarios</h3>
       <p className="card-text">
