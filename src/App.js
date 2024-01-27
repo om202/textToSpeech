@@ -10,18 +10,24 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./Footer";
 import About from "./About";
+import appInsights from "./services/applicationInsights";
+
+appInsights.loadAppInsights();
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <Nav />
-        <div className="container-fluid" style={{minHeight: '100vh', marginBottom: '4rem'}}>
+        <div
+          className="container-fluid"
+          style={{ minHeight: "100vh", marginBottom: "4rem" }}
+        >
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home insights={appInsights} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<About insights={appInsights} />} />
           </Routes>
         </div>
         <Footer />

@@ -31,19 +31,16 @@ const audioSSML = (
     speed = "medium",
   }
 ) => {
-  console.log("voiceSpec ???", { lang, voice, style, pitch, speed });
-
   const ssml = `
   <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis"  xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="${lang}">
     <voice name="${voice}">
       <mstts:express-as style="${style}">
-      <prosody rate="${pitch}" pitch="${speed}">
+      <prosody rate="${speed}" pitch="${pitch}">
         ${text}
       </prosody>
       </mstts:express-as>
     </voice>
   </speak>`;
-  console.log("ssml", ssml);
   return ssml;
 };
 

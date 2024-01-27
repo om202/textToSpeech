@@ -18,7 +18,6 @@ function MicrosoftLogin() {
           account: accounts[0],
         })
         .then((response) => {
-          console.log("SUCCESS RESPONSE ???", response);
           callMsGraph(response.accessToken).then((response) =>
             dispatch(setMicrosoftAuthGraphData(response))
           );

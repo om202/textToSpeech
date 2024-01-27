@@ -10,8 +10,10 @@ import {
 } from "./services/textToSpeechReducer";
 import { toast } from "react-toastify";
 import Information from "./Information";
+import { INSIGHTS_CONSTANTS } from "./services/insightsConstants";
+import appInsights from "./services/applicationInsights";
 
-const Home = () => {
+const Home = ({ insights }) => {
   const delay = 6000; // 6 seconds in milliseconds
   const [loading, setLoading] = useState(false);
   const [VoiceData, setVoiceData] = useState(getVoiceData());
@@ -40,6 +42,29 @@ const Home = () => {
   const isRecording = useSelector((state) => state.speechToText.recording);
   const language = useSelector((state) => state.textToSpeech.language);
   const audio = useSelector((state) => state.textToSpeech.speech);
+
+  useEffect(() => {
+    fetch("https://ipapi.co/json/")
+      .then((response) => response.json())
+      .then((data) => {
+        insights.trackPageView({
+          name: "Home",
+          uri: "/",
+          properties: {
+            data: {
+              userAgent: navigator.userAgent,
+              language: navigator.language,
+              screenResolution:
+                window.screen.width + "x" + window.screen.height,
+              locationData: data,
+            },
+          },
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, [insights]);
 
   useEffect(() => {
     if (isFirstChange.current) {
@@ -74,6 +99,11 @@ const Home = () => {
       toast.error("Enter some text!");
       return;
     }
+
+    insights.trackEvent({
+      name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_BUTTON_GENERATE_VOICE,
+      properties: { text: text },
+    });
 
     if (text.length > 120) {
       toast.error(
@@ -117,6 +147,10 @@ const Home = () => {
   };
 
   const updateData = (value) => {
+    insights.trackEvent({
+      name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_VOICE,
+      properties: { text: value },
+    });
     const data = JSON.parse(value);
     setVoiceName(data.ShortName);
     setCurrentStyleList(data.StyleList);
@@ -134,7 +168,7 @@ const Home = () => {
         </h1>
         <h5 className="mb-5">
           <i
-            class="bi bi-award"
+            className="bi bi-award"
             style={{ color: "orange", marginRight: "8px" }}
           ></i>{" "}
           Free Text to Speech (TTS) Online
@@ -144,13 +178,17 @@ const Home = () => {
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
               <div className="mb-2 label">
-                <i class="bi bi-flag emoji-icon"></i> Select a Language
+                <i className="bi bi-flag emoji-icon"></i> Select a Language
               </div>
               <select
                 className="form-select my-select"
-                onChange={(e) =>
-                  dispatch(setTextToSpeechLanguage(e.target.value))
-                }
+                onChange={(e) => {
+                  insights.trackEvent({
+                    name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_LANGUAGE,
+                    properties: { text: e.target.value },
+                  });
+                  return dispatch(setTextToSpeechLanguage(e.target.value));
+                }}
               >
                 {Languages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
@@ -164,7 +202,7 @@ const Home = () => {
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
           <div className="col-12 mb-2">
             <div className="mb-2 label">
-              <i class="bi bi-emoji-laughing emoji-icon"></i> Select a Voice
+              <i className="bi bi-emoji-laughing emoji-icon"></i> Select a Voice
             </div>
             <select
               ref={selectVoiceEl}
@@ -183,12 +221,18 @@ const Home = () => {
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
               <div className="mb-2">
-                <i class="bi bi-layers emoji-icon"></i> Select a Style
+                <i className="bi bi-layers emoji-icon"></i> Select a Style
               </div>
               <select
                 className="form-select my-select"
                 style={{ textTransform: "capitalize" }}
-                onChange={(e) => setSelectedStyle(e.target.value)}
+                onChange={(e) => {
+                  insights.trackEvent({
+                    name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_STYLE,
+                    properties: { text: e.target.value },
+                  });
+                  return setSelectedStyle(e.target.value);
+                }}
               >
                 {currentStyleList.map((style) => (
                   <option key={style} value={style}>
@@ -202,14 +246,21 @@ const Home = () => {
         <div className="row g-2 g-md-3 g-lg-4 mb-4">
           <div className="col-12">
             <div className="mb-2 label">
-              <i class="bi bi-music-note-beamed emoji-icon"></i> Select Pitch
+              <i className="bi bi-music-note-beamed emoji-icon"></i> Select Pitch
               Level
             </div>
             <select
               defaultValue="medium"
               className="form-select my-select"
               style={{ textTransform: "capitalize" }}
-              onChange={(e) => setSpeed(e.target.value)}
+              onChange={(e) => {
+                insights.trackEvent({
+                  name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_PITCH,
+                  properties: { text: e.target.value },
+                });
+                console.log("PITCH",e.target.value);
+                return setPitch(e.target.value);
+              }}
             >
               {pitchLevelList.map((pitch) => (
                 <option key={pitch} value={pitch}>
@@ -222,14 +273,21 @@ const Home = () => {
         <div className="row g-2 g-md-3 g-lg-4 mb-4">
           <div className="col-12">
             <div className="mb-2 label">
-              <i class="bi bi-lightning-charge emoji-icon"></i> Select Speed
+              <i className="bi bi-lightning-charge emoji-icon"></i> Select Speed
               Level
             </div>
             <select
               defaultValue="medium"
               className="form-select my-select"
               style={{ textTransform: "capitalize" }}
-              onChange={(e) => setPitch(e.target.value)}
+              onChange={(e) => {
+                insights.trackEvent({
+                  name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_SPEED,
+                  properties: { text: e.target.value },
+                });
+                console.log("SPEED",e.target.value);
+                return setSpeed(e.target.value);
+              }}
             >
               {speedLevelList.map((speed) => (
                 <option key={speed} value={speed}>
@@ -242,7 +300,7 @@ const Home = () => {
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-12">
             <div className="label mb-2">
-              <i class="bi bi-pencil-square emoji-icon"></i> Write Your Text
+              <i className="bi bi-pencil-square emoji-icon"></i> Write Your Text
               Here
             </div>
             <textarea
@@ -270,7 +328,7 @@ const Home = () => {
           style={{ height: "3rem", fontSize: "1.1rem" }}
           onClick={() => getAudio()}
         >
-          <i class="bi bi-mic-fill" style={{ marginRight: "8px" }}></i> Generate
+          <i className="bi bi-mic-fill" style={{ marginRight: "8px" }}></i> Generate
           Speech
         </button>
         {loading && (
@@ -288,14 +346,23 @@ const Home = () => {
               href={audio}
               download="audio.mp3"
               className="btn btn-success mt-3 w-100 download-btn"
+              onClick={() =>
+                appInsights.trackEvent({
+                  name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_BUTTON_DOWNLOAD,
+                  properties: { text: text },
+                })
+              }
             >
-              <i class="bi bi-cloud-download-fill" style={{ marginRight: "8px" }}></i>{" "}
+              <i
+                className="bi bi-cloud-download-fill"
+                style={{ marginRight: "8px" }}
+              ></i>{" "}
               Download Audio (MP3)
             </a>
           </div>
         )}
       </div>
-      <Information />
+      <Information insights={insights} />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
+import { INSIGHTS_CONSTANTS } from "./services/insightsConstants";
 
-const Information = () => {
+const Information = ({ insights }) => {
   return (
     <div className="information-card">
       <h1>Voice Guru - The Best AI Text to Speech Website on the Internet</h1>
@@ -15,15 +16,23 @@ const Information = () => {
         future.
       </p>
       <p>
-        <i>If you like our work, please consider supporting us with a coffee.</i>
+        <i>
+          If you like our work, please consider supporting us with a coffee.
+        </i>
         <br />
         <a
           href="https://www.buymeacoffee.com/voiceguru"
           target="_blank"
           rel="noopener noreferrer"
           className="buy-me-a-coffee"
+          onClick={() =>
+            insights.trackEvent({
+              name: INSIGHTS_CONSTANTS.INFORMATION_PAGE
+                .INFORMATION_BUTTON_BUY_ME_A_COFFEE,
+            })
+          }
         >
-          <i class="bi bi-cup-hot"></i> Buy me a coffee
+          <i className="bi bi-cup-hot"></i> Buy me a coffee
         </a>
       </p>
     </div>

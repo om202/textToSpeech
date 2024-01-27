@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-const About = () => {
+const About = ({insights}) => {
+  useEffect(() => {
+    insights.trackPageView({
+      name: "About",
+      uri: "/about",
+    });
+  }, [insights]);
   return (
     <div
       className="container-fluid"

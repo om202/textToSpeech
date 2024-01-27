@@ -5,6 +5,8 @@
   "dependencies": {
     "@azure/msal-browser": "^3.6.0",
     "@azure/msal-react": "^2.0.8",
+    "@microsoft/applicationinsights-react-js": "^17.0.3",
+    "@microsoft/applicationinsights-web": "^3.0.7",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +14,7 @@
     "autosize": "^6.0.1",
     "bootstrap": "^5.3.2",
     "dotenv": "^16.3.1",
+    "history": "^5.3.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.33.1",
     "msal": "^1.4.18",
     "react": "^18.2.0",
