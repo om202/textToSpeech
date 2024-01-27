@@ -6,14 +6,9 @@ const About = () => {
       className="container-fluid"
       style={{ maxWidth: "748px", marginTop: "90px" }}
     >
-      <h1 className="card-title mb-4 display-6">
-        <img
-          src="logo.png"
-          alt="logo"
-          width={48}
-          style={{ marginRight: "10px" }}
-        />
-        Voice Guru
+      <h1 className="mb-3 my-title">
+        <img src="logo.png" alt="logo" width={"48px"} className="me-2" /> Voice
+        Guru
       </h1>
       <p className="card-text">
         Voice Guru is a user-friendly online text-to-speech tool that allows
@@ -39,6 +34,27 @@ const About = () => {
           <li>💼 Free for commercial usage </li>
           <li>🌐 Supports multiple languages</li>
           <li>😄 Offers multiple emotions to select from</li>
+        </ul>
+      </p>
+      <h3 className="mt-5">📖 Languages</h3>
+      <p className="card-text">
+        <ul style={{ listStyleType: "none" }}>
+          <li>🇺🇸 English (United States)</li>
+          <li>🇨🇳 Chinese (Mandarin)</li>
+          <li>🇮🇳 Hindi</li>
+          <li>🇮🇳 Telugu</li>
+          <li>🇮🇳 Tamil</li>
+          <li>🇮🇳 Malayalam</li>
+          <li>🇮🇳 Marathi</li>
+          <li>🇳🇵 Nepali</li>
+          <li>🇲🇽 Spanish</li>
+          <li>🇫🇷 French</li>
+          <li>🇦🇪 Arabic</li>
+          <li>🇷🇺 Russian</li>
+          <li>🇧🇷 Portuguese</li>
+          <li>🇮🇩 Indonesian</li>
+          <li>🇩🇪 German</li>
+          <li>🇯🇵 Japanese</li>
         </ul>
       </p>
       <h3 className="mt-5">🔄 Updates</h3>

@@ -1,14 +1,11 @@
 import React from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 const Nav = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const loginUser = useSelector((state) => state.authentication.authUser);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-2 mb-4 fixed-top">
+    <nav className="navbar navbar-expand-lg shadow-sm p-2 mb-4 fixed-top my-nav">
       <div className="container-fluid">
         <div
           className="navbar-brand"

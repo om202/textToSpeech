@@ -9,14 +9,15 @@ import {
   setTextToSpeechSpeech,
 } from "./services/textToSpeechReducer";
 import { toast } from "react-toastify";
+import Information from "./Information";
 
 const Home = () => {
-  const delay = 60000; // 1 minute in milliseconds
+  const delay = 6000; // 6 seconds in milliseconds
   const [loading, setLoading] = useState(false);
   const [VoiceData, setVoiceData] = useState(getVoiceData());
   const [voiceName, setVoiceName] = useState(VoiceData?.[0]?.ShortName);
-  const [pitch, setPitch] = useState('medium');
-  const [speed, setSpeed] = useState('medium');
+  const [pitch, setPitch] = useState("medium");
+  const [speed, setSpeed] = useState("medium");
   const [currentStyleList, setCurrentStyleList] = useState(
     VoiceData?.[0]?.StyleList
   );
@@ -127,14 +128,26 @@ const Home = () => {
       style={{ maxWidth: "748px", marginTop: "80px" }}
     >
       <div className="card-body">
-        <h1 className="card-title mb-5 display-6">Free AI Voice Generator</h1>
+        <h1 className="mb-3 my-title">
+          <img src="logo.png" alt="logo" width={"48px"} className="me-2" />{" "}
+          Voice Guru
+        </h1>
+        <h5 className="mb-5">
+          <i
+            class="bi bi-award"
+            style={{ color: "orange", marginRight: "8px" }}
+          ></i>{" "}
+          Best text-to-speech website on the internet
+        </h5>
 
         {Languages && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
-              <div className="mb-2">Choose a Language 🇱🇷</div>
+              <div className="mb-2 label">
+                <i class="bi bi-flag emoji-icon"></i> Choose a Language
+              </div>
               <select
-                className="form-select"
+                className="form-select my-select"
                 onChange={(e) =>
                   dispatch(setTextToSpeechLanguage(e.target.value))
                 }
@@ -150,10 +163,12 @@ const Home = () => {
         )}
         <div className="row mb-4 g-2 g-md-3 g-lg-4">
           <div className="col-12 mb-2">
-            <div className="mb-2">Choose a Voice 😄</div>
+            <div className="mb-2 label">
+              <i class="bi bi-emoji-laughing emoji-icon"></i> Choose a Voice
+            </div>
             <select
               ref={selectVoiceEl}
-              className="form-select w-100"
+              className="form-select my-select w-100"
               onChange={(e) => updateData(e.target.value)}
             >
               {VoiceData.map((vd) => (
@@ -167,9 +182,11 @@ const Home = () => {
         {currentStyleList && currentStyleList.length > 0 && (
           <div className="row mb-4 g-2 g-md-3 g-lg-4">
             <div className="col">
-              <div className="mb-2">Choose a Style 🎭</div>
+              <div className="mb-2">
+                <i class="bi bi-layers emoji-icon"></i> Choose a Style
+              </div>
               <select
-                className="form-select"
+                className="form-select my-select"
                 style={{ textTransform: "capitalize" }}
                 onChange={(e) => setSelectedStyle(e.target.value)}
               >
@@ -184,43 +201,53 @@ const Home = () => {
         )}
         <div className="row g-2 g-md-3 g-lg-4 mb-4">
           <div className="col-12">
-            <div className="mb-2">Choose pitch level 🎵</div>
+            <div className="mb-2 label">
+              <i class="bi bi-music-note-beamed emoji-icon"></i> Choose pitch
+              level
+            </div>
             <select
-                defaultValue="medium"
-                className="form-select"
-                style={{ textTransform: "capitalize" }}
-                onChange={(e) => setSpeed(e.target.value)}
-              >
-                {pitchLevelList.map((pitch) => (
-                  <option key={pitch} value={pitch}>
-                    {pitch}
-                  </option>
-                ))}
-              </select>
+              defaultValue="medium"
+              className="form-select my-select"
+              style={{ textTransform: "capitalize" }}
+              onChange={(e) => setSpeed(e.target.value)}
+            >
+              {pitchLevelList.map((pitch) => (
+                <option key={pitch} value={pitch}>
+                  {pitch}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="row g-2 g-md-3 g-lg-4 mb-4">
           <div className="col-12">
-            <div className="mb-2">Choose speed level ⚡</div>
+            <div className="mb-2 label">
+              <i class="bi bi-lightning-charge emoji-icon"></i> Choose speed
+              level
+            </div>
             <select
-                defaultValue="medium"
-                className="form-select"
-                style={{ textTransform: "capitalize" }}
-                onChange={(e) => setPitch(e.target.value)}
-              >
-                {speedLevelList.map((speed) => (
-                  <option key={speed} value={speed}>
-                    {speed}
-                  </option>
-                ))}
-              </select>
+              defaultValue="medium"
+              className="form-select my-select"
+              style={{ textTransform: "capitalize" }}
+              onChange={(e) => setPitch(e.target.value)}
+            >
+              {speedLevelList.map((speed) => (
+                <option key={speed} value={speed}>
+                  {speed}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-12">
+            <div className="label mb-2">
+              <i class="bi bi-pencil-square emoji-icon"></i> Write your text
+              here
+            </div>
             <textarea
               style={{
-                minHeight: "64px",
+                minHeight: "100px",
                 maxHeight: "192px",
                 overflow: "auto",
                 resize: "none",
@@ -228,7 +255,9 @@ const Home = () => {
               // maxLength={120}
               className="form-control col-10"
               id="inputTextArea"
-              placeholder={"Enter Text 📝"}
+              placeholder={
+                "Please write your text here to convert to speech..."
+              }
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
@@ -241,7 +270,8 @@ const Home = () => {
           style={{ height: "3rem", fontSize: "1.1rem" }}
           onClick={() => getAudio()}
         >
-          Generate Voice
+          <i class="bi bi-mic-fill" style={{ marginRight: "8px" }}></i> Generate
+          Speech
         </button>
         {loading && (
           <div className="mt-4 d-flex justify-content-center">
@@ -257,13 +287,15 @@ const Home = () => {
             <a
               href={audio}
               download="audio.mp3"
-              className="btn btn-success mt-3 w-100"
+              className="btn btn-success mt-3 w-100 download-btn"
             >
+              <i class="bi bi-download" style={{ marginRight: "8px" }}></i>{" "}
               Download (MP3)
             </a>
           </div>
         )}
       </div>
+      <Information />
     </div>
   );
 };
