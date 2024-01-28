@@ -214,7 +214,7 @@ const Home = ({ insights }) => {
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-12">
             <div className="label mb-2">
-              <i className="bi bi-pencil-square emoji-icon"></i> Enter Text to
+              <i className="bi bi-text-left emoji-icon"></i> Enter Text to
               Convert into Speech
             </div>
             <textarea
@@ -240,8 +240,8 @@ const Home = ({ insights }) => {
           style={{ height: "3rem", fontSize: "1.1rem" }}
           onClick={() => getAudio()}
         >
-          <i className="bi bi-mic-fill" style={{ marginRight: "8px" }}></i>{" "}
-          Generate Speech
+          <i className="bi bi-rocket-takeoff" style={{ marginRight: "8px" }}></i>{" "}
+          Convert to Speech
         </button>
         {loading && (
           <div className="mt-4 d-flex justify-content-center">

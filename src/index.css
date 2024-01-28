@@ -15,13 +15,13 @@ body {
 }
 
 audio {
-  background-color: var(--medium-blue);
+  background-color: var(--light-blue);
   border: none;
   border-radius: 5px;
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: var(--medium-blue);
+  background-color: var(--light-blue);
 }
 
 a {
@@ -65,8 +65,8 @@ a {
 }
 
 .my-title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: 1.5rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
 }

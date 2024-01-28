@@ -8,7 +8,7 @@ const Footer = () => {
           <img src="logo.png" width={32} alt="logo" /> Voice Guru
         </div>
         <div className="mb-3">
-          <span className="text-muted">Created with ❤️ in Colorado, USA.</span>
+          <span className="text-muted">Created with <i class="bi bi-heart-fill" style={{color: "red"}}></i> in Colorado, USA.</span>
         </div>
       </div>
     </footer>
