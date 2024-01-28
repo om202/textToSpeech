@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import Information from "./Information";
 import { INSIGHTS_CONSTANTS } from "./services/insightsConstants";
 import appInsights from "./services/applicationInsights";
+import Information2 from "./Information2";
 
 const Home = ({ insights }) => {
   const DELAY = 6000; // 6 seconds in milliseconds
@@ -198,7 +199,7 @@ const Home = ({ insights }) => {
     >
       <div className="card-body">
         <h1 className="mb-3 my-title">
-          <img src="logo.png" alt="logo" width={"48px"} className="me-2" />{" "}
+          <img src="logo.png" alt="logo" width={"48px"} className="me-3" />{" "}
           Voice Guru
         </h1>
         <h5 className="mb-5">
@@ -209,136 +210,16 @@ const Home = ({ insights }) => {
           Free Text to Speech (TTS) Online
         </h5>
 
-        {Languages && (
-          <div className="row mb-4 g-2 g-md-3 g-lg-4">
-            <div className="col">
-              <div className="mb-2 label">
-                <i className="bi bi-flag emoji-icon"></i> Select a Language
-              </div>
-              <select
-                className="form-select my-select"
-                onChange={(e) => {
-                  insights.trackEvent({
-                    name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_LANGUAGE,
-                    properties: { text: e.target.value },
-                  });
-                  return dispatch(setTextToSpeechLanguage(e.target.value));
-                }}
-              >
-                {Languages.map((lang) => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        )}
-        <div className="row mb-4 g-2 g-md-3 g-lg-4">
-          <div className="col-12 mb-2">
-            <div className="mb-2 label">
-              <i className="bi bi-emoji-laughing emoji-icon"></i> Select a Voice
-            </div>
-            <select
-              ref={selectVoiceEl}
-              className="form-select my-select w-100"
-              onChange={(e) => updateData(e.target.value)}
-            >
-              {VoiceData.map((vd) => (
-                <option key={vd.ShortName} value={JSON.stringify(vd)}>
-                  {vd.DisplayName}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        {currentStyleList && currentStyleList.length > 0 && (
-          <div className="row mb-4 g-2 g-md-3 g-lg-4">
-            <div className="col">
-              <div className="mb-2">
-                <i className="bi bi-layers emoji-icon"></i> Select a Style
-              </div>
-              <select
-                className="form-select my-select"
-                style={{ textTransform: "capitalize" }}
-                onChange={(e) => {
-                  insights.trackEvent({
-                    name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_STYLE,
-                    properties: { text: e.target.value },
-                  });
-                  return setSelectedStyle(e.target.value);
-                }}
-              >
-                {currentStyleList.map((style) => (
-                  <option key={style} value={style}>
-                    {style}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        )}
-        <div className="row g-2 g-md-3 g-lg-4 mb-4">
-          <div className="col-12">
-            <div className="mb-2 label">
-              <i className="bi bi-music-note-beamed emoji-icon"></i> Select
-              Pitch Level
-            </div>
-            <select
-              defaultValue="medium"
-              className="form-select my-select"
-              style={{ textTransform: "capitalize" }}
-              onChange={(e) => {
-                insights.trackEvent({
-                  name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_PITCH,
-                  properties: { text: e.target.value },
-                });
-                return setPitch(e.target.value);
-              }}
-            >
-              {pitchLevelList.map((pitch) => (
-                <option key={pitch} value={pitch}>
-                  {pitch}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="row g-2 g-md-3 g-lg-4 mb-4">
-          <div className="col-12">
-            <div className="mb-2 label">
-              <i className="bi bi-lightning-charge emoji-icon"></i> Select Speed
-              Level
-            </div>
-            <select
-              defaultValue="medium"
-              className="form-select my-select"
-              style={{ textTransform: "capitalize" }}
-              onChange={(e) => {
-                insights.trackEvent({
-                  name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_SPEED,
-                  properties: { text: e.target.value },
-                });
-                return setSpeed(e.target.value);
-              }}
-            >
-              {speedLevelList.map((speed) => (
-                <option key={speed} value={speed}>
-                  {speed}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+        {/* Text Area */}
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-12">
             <div className="label mb-2">
-              <i className="bi bi-pencil-square emoji-icon"></i> Write Your Text
-              Here
+              <i className="bi bi-pencil-square emoji-icon"></i> Enter Text to
+              Convert into Speech
             </div>
             <textarea
               style={{
-                minHeight: "100px",
+                minHeight: "160px",
                 maxHeight: "192px",
                 overflow: "auto",
                 resize: "none",
@@ -346,9 +227,7 @@ const Home = ({ insights }) => {
               // maxLength={120}
               className="form-control col-10"
               id="inputTextArea"
-              placeholder={
-                "Please write your text here to convert to speech..."
-              }
+              placeholder={"Welcome to Voice Guru!"}
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
@@ -394,8 +273,138 @@ const Home = ({ insights }) => {
             </a>
           </div>
         )}
+
+        {/* Settings */}
+        <div className="p-4 card mt-5 shadow-sm">
+          <h3 className="">
+            <i class="bi bi-magic me-2"></i> Settings
+          </h3>
+          {Languages && (
+            <div className="row mb-4 g-2 g-md-3 g-lg-4 mt-2">
+              <div className="col">
+                <div className="mb-2 label">
+                  <i className="bi bi-flag emoji-icon"></i> Select a Language
+                </div>
+                <select
+                  className="form-select my-select"
+                  onChange={(e) => {
+                    insights.trackEvent({
+                      name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_LANGUAGE,
+                      properties: { text: e.target.value },
+                    });
+                    return dispatch(setTextToSpeechLanguage(e.target.value));
+                  }}
+                >
+                  {Languages.map((lang) => (
+                    <option key={lang.code} value={lang.code}>
+                      {lang.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+          <div className="row mb-4 g-2 g-md-3 g-lg-4">
+            <div className="col-12 mb-2">
+              <div className="mb-2 label">
+                <i className="bi bi-emoji-laughing emoji-icon"></i> Select a
+                Voice
+              </div>
+              <select
+                ref={selectVoiceEl}
+                className="form-select my-select w-100"
+                onChange={(e) => updateData(e.target.value)}
+              >
+                {VoiceData.map((vd) => (
+                  <option key={vd.ShortName} value={JSON.stringify(vd)}>
+                    {vd.DisplayName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {currentStyleList && currentStyleList.length > 0 && (
+            <div className="row mb-4 g-2 g-md-3 g-lg-4">
+              <div className="col">
+                <div className="mb-2">
+                  <i className="bi bi-layers emoji-icon"></i> Select a Style
+                </div>
+                <select
+                  className="form-select my-select"
+                  style={{ textTransform: "capitalize" }}
+                  onChange={(e) => {
+                    insights.trackEvent({
+                      name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_STYLE,
+                      properties: { text: e.target.value },
+                    });
+                    return setSelectedStyle(e.target.value);
+                  }}
+                >
+                  {currentStyleList.map((style) => (
+                    <option key={style} value={style}>
+                      {style}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
+          <div className="row g-2 g-md-3 g-lg-4 mb-4">
+            <div className="col-12">
+              <div className="mb-2 label">
+                <i className="bi bi-music-note-beamed emoji-icon"></i> Select
+                Pitch Level
+              </div>
+              <select
+                defaultValue="medium"
+                className="form-select my-select"
+                style={{ textTransform: "capitalize" }}
+                onChange={(e) => {
+                  insights.trackEvent({
+                    name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_PITCH,
+                    properties: { text: e.target.value },
+                  });
+                  return setPitch(e.target.value);
+                }}
+              >
+                {pitchLevelList.map((pitch) => (
+                  <option key={pitch} value={pitch}>
+                    {pitch}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="row g-2 g-md-3 g-lg-4">
+            <div className="col-12">
+              <div className="mb-2 label">
+                <i className="bi bi-lightning-charge emoji-icon"></i> Select
+                Speed Level
+              </div>
+              <select
+                defaultValue="medium"
+                className="form-select my-select"
+                style={{ textTransform: "capitalize" }}
+                onChange={(e) => {
+                  insights.trackEvent({
+                    name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_SELECT_SPEED,
+                    properties: { text: e.target.value },
+                  });
+                  return setSpeed(e.target.value);
+                }}
+              >
+                {speedLevelList.map((speed) => (
+                  <option key={speed} value={speed}>
+                    {speed}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
       <Information insights={insights} />
+      <Information2 insights={insights} />
     </div>
   );
 };

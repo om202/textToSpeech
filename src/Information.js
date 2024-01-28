@@ -34,6 +34,7 @@ const Information = ({ insights }) => {
         >
           <i className="bi bi-cup-hot"></i> Buy me a coffee
         </a>
+
       </p>
     </div>
   );
