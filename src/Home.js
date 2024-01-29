@@ -13,6 +13,7 @@ import Information from "./Information";
 import { INSIGHTS_CONSTANTS } from "./services/insightsConstants";
 import appInsights from "./services/applicationInsights";
 import Information2 from "./Information2";
+import Spinner from "./components/Spinner";
 
 const Home = ({ insights }) => {
   const DELAY = 6000; // 6 seconds in milliseconds
@@ -28,7 +29,7 @@ const Home = ({ insights }) => {
   const [selectedStyle, setSelectedStyle] = useState(
     VoiceData?.[0]?.StyleList?.[0] || ""
   );
-  const [text, setText] = useState("");
+  const [text, setText] = useState("Voice Guru - The Best AI Text to Speech Website on the Internet");
   const selectVoiceEl = useRef(null);
   let isFirstChange = useRef(true);
 
@@ -207,7 +208,7 @@ const Home = ({ insights }) => {
             className="bi bi-award"
             style={{ color: "orange", marginRight: "8px" }}
           ></i>{" "}
-          Free Text to Speech (TTS) Online
+          Free Text to Speech (TTS) Online 
         </h5>
 
         {/* Text Area */}
@@ -218,13 +219,6 @@ const Home = ({ insights }) => {
               Convert into Speech
             </div>
             <textarea
-              style={{
-                minHeight: "160px",
-                maxHeight: "192px",
-                overflow: "auto",
-                resize: "none",
-              }}
-              // maxLength={120}
               className="form-control col-10"
               id="inputTextArea"
               placeholder={"Welcome to Voice Guru!"}
@@ -245,7 +239,9 @@ const Home = ({ insights }) => {
         </button>
         {loading && (
           <div className="mt-4 d-flex justify-content-center">
-            <span className="sr-only">Processing...</span>
+            <span className="sr-only">
+            <Spinner className="mr-2" />
+            </span>
           </div>
         )}
         {audio && !loading && (

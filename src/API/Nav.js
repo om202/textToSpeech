@@ -12,12 +12,17 @@ const Nav = () => {
           style={{ cursor: "pointer" }}
           onClick={() => navigate("/")}
         >
-          <img src="logo.png" alt="logo" width={"48px"} className="me-2" />{" "}
+          <img src="logo.png" alt="logo" width={"40px"} className="me-1" />{" "}
           <span>Voice Guru</span>
         </div>
-        <Link to="/about" className="nav-link">
-          About
-        </Link>
+        <div className="nav nav-items">
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+          <Link to="/about" className="nav-link">
+            About
+          </Link>
+        </div>
       </div>
     </nav>
   );
