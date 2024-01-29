@@ -109,6 +109,7 @@ a {
   min-height: 160px !important;
   max-height: 192px !important;
   overflow: auto;
+  padding: 16px;
   resize: none;
 }
 

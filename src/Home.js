@@ -17,6 +17,7 @@ import Spinner from "./components/Spinner";
 
 const Home = ({ insights }) => {
   const DELAY = 6000; // 6 seconds in milliseconds
+  const DEFAULT_TEXT = "Welcome to Voice Guru!";
   const [homeTimerStart, setHomeTimerStart] = useState(null);
   const [loading, setLoading] = useState(false);
   const [VoiceData, setVoiceData] = useState(getVoiceData());
@@ -29,7 +30,7 @@ const Home = ({ insights }) => {
   const [selectedStyle, setSelectedStyle] = useState(
     VoiceData?.[0]?.StyleList?.[0] || ""
   );
-  const [text, setText] = useState("Voice Guru - The Best AI Text to Speech Website on the Internet");
+  const [text, setText] = useState("");
   const selectVoiceEl = useRef(null);
   let isFirstChange = useRef(true);
 
@@ -132,10 +133,6 @@ const Home = ({ insights }) => {
 
   const getAudio = () => {
     const currentTime = Date.now();
-    if (!text) {
-      toast.error("Enter some text!");
-      return;
-    }
 
     insights.trackEvent({
       name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_BUTTON_GENERATE_VOICE,
@@ -163,7 +160,7 @@ const Home = ({ insights }) => {
 
     if (currentTime - lastClickTime >= DELAY) {
       speechSDK
-        .synth(text, voiceSpec)
+        .synth(text || DEFAULT_TEXT, voiceSpec)
         .then((audio) => {
           dispatch(setTextToSpeechSpeech(audio));
           setLoading(false);
@@ -221,7 +218,7 @@ const Home = ({ insights }) => {
             <textarea
               className="form-control col-10"
               id="inputTextArea"
-              placeholder={"Welcome to Voice Guru!"}
+              placeholder={DEFAULT_TEXT}
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
