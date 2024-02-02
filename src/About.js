@@ -71,6 +71,10 @@ const About = ({ insights }) => {
       <h1 className="mb-3 my-title">
         <img src="logo.png" alt="logo" width={"48px"} className="me-2" /> Voice
         Guru
+        <i
+          class="bi bi-check-circle-fill"
+          style={{ marginLeft: "0.5rem", fontSize: "1rem", color: "#2962D7" }}
+        ></i>
       </h1>
       <p className="card-text">
         <button

@@ -20,7 +20,7 @@ function App() {
       <Router>
         <Nav />
         <div
-          className="container-fluid"
+          className="container-fluid app-container"
           style={{ minHeight: "100vh", marginBottom: "4rem" }}
         >
           <Routes>

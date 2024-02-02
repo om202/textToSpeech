@@ -50,6 +50,8 @@ const Home = ({ insights }) => {
   // page start event
   useEffect(() => {
     setHomeTimerStart(Date.now());
+    const textarea = document.querySelector("#inputTextArea");
+    textarea.focus();
     const PAGE_DATA = {
       userAgent: navigator.userAgent,
       language: navigator.language,
@@ -192,29 +194,29 @@ const Home = ({ insights }) => {
 
   return (
     <div
-      className="container-fluid p-3 p-md-5 p-lg-5"
+      className="container-fluid p-3 p-md-5 p-lg-5 home-container"
       style={{ maxWidth: "748px", marginTop: "80px" }}
     >
       <div className="card-body">
         <h1 className="mb-3 my-title">
           <img src="logo.png" alt="logo" width={"48px"} className="me-3" />{" "}
-          Voice Guru
+          Voice Guru{" "}
+          <i
+            class="bi bi-check-circle-fill"
+            style={{ marginLeft: "0.5rem", fontSize: "1rem", color: "#2962D7" }}
+          ></i>
         </h1>
         <h5 className="mb-5">
           <i
             className="bi bi-award"
             style={{ color: "orange", marginRight: "8px" }}
           ></i>{" "}
-          Free Text to Speech (TTS) Online 
+          Free Text to Speech (TTS) Online
         </h5>
 
         {/* Text Area */}
         <div className="row g-2 g-md-3 g-lg-4">
           <div className="col-12">
-            <div className="label mb-2">
-              <i className="bi bi-text-left emoji-icon"></i> Enter Text to
-              Convert into Speech
-            </div>
             <textarea
               className="form-control col-10"
               id="inputTextArea"
@@ -231,13 +233,16 @@ const Home = ({ insights }) => {
           style={{ height: "3rem", fontSize: "1.1rem" }}
           onClick={() => getAudio()}
         >
-          <i className="bi bi-rocket-takeoff" style={{ marginRight: "8px" }}></i>{" "}
+          <i
+            className="bi bi-rocket-takeoff"
+            style={{ marginRight: "8px" }}
+          ></i>{" "}
           Convert to Speech
         </button>
         {loading && (
           <div className="mt-4 d-flex justify-content-center">
             <span className="sr-only">
-            <Spinner className="mr-2" />
+              <Spinner className="mr-2" />
             </span>
           </div>
         )}

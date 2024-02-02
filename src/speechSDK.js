@@ -51,7 +51,7 @@ const audioSSML = (
  */
 
 const synth = async (text, voiceSpec) => {
-  const synthesizer = new SpeechSynthesizer(speechConfig, null);
+  const synthesizer = new SpeechSynthesizer(speechConfig);
 
   return new Promise((resolve, reject) =>
     synthesizer.speakSsmlAsync(
