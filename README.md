@@ -45,6 +45,6 @@ Feel free to contriubte your way!
 
 Below is a glimpse of the Voice Guru user interface. Our design focuses on simplicity and efficiency, allowing users to interact with the AI voice generation features easily.
 
-![User Interface of Voice Guru](./public/ui.png)
+![User Interface of Voice Guru](./public/screenvoice.png)
 
 
