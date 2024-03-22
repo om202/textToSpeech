@@ -1,26 +1,28 @@
 import React from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 
 const Nav = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const loginUser = useSelector((state) => state.authentication.authUser);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm p-2 mb-4 fixed-top">
+    <nav className="navbar navbar-expand-lg shadow-sm p-2 mb-4 fixed-top my-nav">
       <div className="container-fluid">
         <div
           className="navbar-brand"
           style={{ cursor: "pointer" }}
           onClick={() => navigate("/")}
         >
-          <img src="logo.png" alt="logo" width={"48px"} className="me-2" />{" "}
+          <img src="logo.png" alt="logo" width={"40px"} className="me-1" />{" "}
           <span>Voice Guru</span>
         </div>
-        <Link to="/about" className="nav-link">
-          About
-        </Link>
+        <div className="nav nav-items">
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+          <Link to="/about" className="nav-link">
+            About
+          </Link>
+        </div>
       </div>
     </nav>
   );

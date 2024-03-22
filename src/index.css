@@ -1,27 +1,176 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 body {
-  font-family: "Noto Sans", sans-serif;
+  font-family: sans-serif;
   font-optical-sizing: auto;
 }
 
 :root {
-  --blue: #0059ff;
-  --default-gradient : linear-gradient(to bottom, rgb(0, 177, 230), rgb(0, 151, 228), rgb(0, 110, 220));
+  --black: #293ed7; /* Darker shade of rgb(41, 98, 215) */
+  --blue: #4162d7; /* Original rgb(41, 98, 215) */
+  --light-blue: #f0f0f0; /* Lighter shade of rgb(41, 98, 215) */
+  --medium-blue: #617bd7; /* Medium shade of rgb(41, 98, 215) */
+  --default-gradient: linear-gradient(
+    to bottom,
+    #2962D7 /* Slightly darker blue */
+  );
+}
+
+button:hover,
+a:hover {
+  transition: all 0.5s ease;
+  filter: brightness(1.2);
+}
+
+#discover-button {
+  background-color: var(--blue);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.navbar-brand {
+  font-size: 1.2rem !important;
+}
+
+.nav-items > * {
+  color: var(--black) !important;
+  font-size: 1rem !important;
 }
 
 audio {
-  background-color: #c3e1ff;
+  background-color: var(--light-blue);
   border: none;
   border-radius: 5px;
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: #c3e1ff;
+  background-color: var(--light-blue);
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none !important;
+}
+
+.title-icon {
+  margin-right: 8px;
+  color: var(--blue);
+}
+
+.emoji-icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+  color: var(--blue);
+  font-weight: 800;
+}
+
+.my-select {
+  padding: 12px !important;
+}
+
+.my-nav {
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .btn-gradient {
   background: var(--default-gradient);
   border: none !important;
   color: white;
+}
+
+.download-btn {
+  display: flex;
+  font-size: 1.1rem !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+#inputTextArea {
+  border: 1px solid var(--medium-blue) !important;
+  min-height: 160px !important;
+  max-height: 192px !important;
+  overflow: auto;
+  padding: 16px;
+  resize: none;
+}
+
+select:focus,
+#inputTextArea:focus {
+  border: 2px solid var(--medium-blue) !important;
+  box-shadow: none !important;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.information-card {
+  background-color: var(--light-blue);
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-top: 4rem;
+  width: 100%;
+  letter-spacing: 0.03125em;
+  line-height: 1.5rem !important;
+}
+
+.information-card h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.information-card > p {
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.information-card p {
+  margin-bottom: 20px;
+}
+
+.information-card ul {
+  margin-top: 1rem;
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.information-card ul li {
+  margin-bottom: 4px;
+}
+
+.buy-me-a-coffee {
+  display: inline-block;
+  background-color: #ff813f;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 1rem;
+  clear: both;
+}
+
+.shout-out {
+  text-decoration: underline;
+  text-decoration-color: yellow;
+}
+
+@media screen and (max-width: 400px) {
+  * {
+    font-size: 1rem;
+  }
 }
