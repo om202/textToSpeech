@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="mb-3">
           <span className="text-muted">Created with <i class="bi bi-heart-fill" style={{color: "red"}}></i> in Colorado, USA.</span>
         </div>
-        <span style={{fontSize: '0.9rem'}} className="text-muted">Version: FP-032223-231</span>
+        <span style={{fontSize: '0.9rem'}} className="text-muted">Version: FP-032223-312</span>
       </div>
     </footer>
   );
