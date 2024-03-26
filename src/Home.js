@@ -141,14 +141,14 @@ const Home = ({ insights }) => {
       properties: { text: text },
     });
 
-    if (text.length > 120) {
-      toast.error(
-        "Text exceeds 120 characters! Current length: " +
-          text.length +
-          " characters"
-      );
-      return;
-    }
+    // if (text.length > 120) {
+    //   toast.error(
+    //     "Text exceeds 120 characters! Current length: " +
+    //       text.length +
+    //       " characters"
+    //   );
+    //   return;
+    // }
 
     setLoading(true);
 
