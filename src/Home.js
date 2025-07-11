@@ -195,7 +195,7 @@ const Home = ({ insights }) => {
   return (
     <div
       className="container-fluid p-3 p-md-5 p-lg-5 home-container"
-      style={{ maxWidth: "748px", marginTop: "80px" }}
+      style={{ maxWidth: "748px", marginTop: "20px" }}
     >
       <div className="card-body">
         <h1 className="mb-3 my-title">

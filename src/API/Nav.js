@@ -5,7 +5,7 @@ const Nav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="navbar navbar-expand-lg shadow-sm p-2 mb-4 fixed-top my-nav">
+    <nav className="navbar navbar-expand-lg shadow-sm p-2 fixed-top my-nav">
       <div className="container-fluid">
         <div
           className="navbar-brand"
