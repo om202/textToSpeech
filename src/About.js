@@ -15,31 +15,16 @@ const About = ({ insights }) => {
       screenResolution: window.screen.width + "x" + window.screen.height,
     };
 
-    fetch("https://ipapi.co/json/")
-      .then((response) => response.json())
-      .then((data) => {
-        insights.trackEvent({
-          name: INSIGHTS_CONSTANTS.ABOUT_PAGE.ABOUT_PAGE_LOADED,
-          properties: {
-            data: {
-              ...PAGE_DATA,
-              locationData: data,
-            },
-          },
-        });
-      })
-      .catch((error) => {
-        insights.trackEvent({
-          name: INSIGHTS_CONSTANTS.ABOUT_PAGE.ABOUT_PAGE_LOADED,
-          properties: {
-            data: {
-              ...PAGE_DATA,
-              locationData: "Error fetching location data",
-            },
-          },
-        });
-        console.error("Error:", error);
-      });
+    // Track page load without location data to avoid rate limiting
+    insights.trackEvent({
+      name: INSIGHTS_CONSTANTS.ABOUT_PAGE.ABOUT_PAGE_LOADED,
+      properties: {
+        data: {
+          ...PAGE_DATA,
+          locationData: "Location tracking disabled",
+        },
+      },
+    });
   }, [insights]);
 
   // page end event
@@ -72,7 +57,7 @@ const About = ({ insights }) => {
         <img src="logo.png" alt="logo" width={"48px"} className="me-2" /> Voice
         Guru
         <i
-          class="bi bi-check-circle-fill"
+          className="bi bi-check-circle-fill"
           style={{ marginLeft: "0.5rem", fontSize: "1rem", color: "#2962D7" }}
         ></i>
       </h1>
@@ -82,7 +67,7 @@ const About = ({ insights }) => {
           id="discover-button"
           onClick={() => navigate("/")}
         >
-          <i class="bi bi-rocket-takeoff me-2"></i> Open Voice Guru
+          <i className="bi bi-rocket-takeoff me-2"></i> Open Voice Guru
         </button>
         <br></br>
         <h3 className="mb-3 mt-3">Text to Speech Made Simple!</h3>
@@ -93,17 +78,17 @@ const About = ({ insights }) => {
       <h3 className="mt-5">How to use?</h3>
       <p className="card-text">
         <ul style={{ listStyleType: "none" }}>
-          <li class="mt-3">
-            <i class="bi bi-mic me-2"></i> Make voiceovers for audiobooks
-            <div class="row mt-2">
-              <div class="col-12 col-sm-4 ms-4 fs-6">
-                <i class="bi bi-amazon me-2"></i>
+          <li className="mt-3">
+            <i className="bi bi-mic me-2"></i> Make voiceovers for audiobooks
+            <div className="row mt-2">
+              <div className="col-12 col-sm-4 ms-4 fs-6">
+                <i className="bi bi-amazon me-2"></i>
                 <a href="https://www.audible.com/" style={{ color: "inherit" }}>
                   Audible
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
-                <i class="bi bi-apple me-2"></i>
+              <div className="col-12 col-sm-4 ms-4 fs-6">
+                <i className="bi bi-apple me-2"></i>
                 <a
                   href="https://www.apple.com/apple-books/"
                   style={{ color: "inherit" }}
@@ -111,8 +96,8 @@ const About = ({ insights }) => {
                   Apple Books
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
-                <i class="bi bi-google me-2"></i>
+              <div className="col-12 col-sm-4 ms-4 fs-6">
+                <i className="bi bi-google me-2"></i>
                 <a
                   href="https://play.google.com/store/books"
                   style={{ color: "inherit" }}
@@ -120,7 +105,7 @@ const About = ({ insights }) => {
                   Google Play Books
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
+              <div className="col-12 col-sm-4 ms-4 fs-6">
                 <img src="kobo.png" alt="udemy" width={18} className="me-2" />
                 <a href="https://www.kobo.com/" style={{ color: "inherit" }}>
                   Kobo Books
@@ -128,22 +113,22 @@ const About = ({ insights }) => {
               </div>
             </div>
           </li>
-          <li class="mt-3">
-            <i class="bi bi-book me-2"></i> Make voiceovers for online courses
-            <div class="row mt-2">
-              <div class="col-12 col-sm-4 ms-4 fs-6">
+          <li className="mt-3">
+            <i className="bi bi-book me-2"></i> Make voiceovers for online courses
+            <div className="row mt-2">
+              <div className="col-12 col-sm-4 ms-4 fs-6">
                 <img src="udemy.png" alt="udemy" width={9} className="me-2" />
                 <a href="https://www.udemy.com/" style={{ color: "inherit" }}>
                   Udemy
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
+              <div className="col-12 col-sm-4 ms-4 fs-6">
                 <img src="edx.png" alt="edx" width={28} className="me-2" />
                 <a href="https://www.edx.org/" style={{ color: "inherit" }}>
                   Edx
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
+              <div className="col-12 col-sm-4 ms-4 fs-6">
                 <img
                   src="coursera.png"
                   alt="coursera"
@@ -157,7 +142,7 @@ const About = ({ insights }) => {
                   Coursera
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
+              <div className="col-12 col-sm-4 ms-4 fs-6">
                 <img
                   src="skillshare.png"
                   alt="skillshare"
@@ -174,23 +159,23 @@ const About = ({ insights }) => {
             </div>
           </li>
 
-          <li class="mt-3">
-            <i class="bi bi-film me-2"></i> Best for content creation
-            <div class="row mt-2">
-              <div class="col-12 col-sm-4 ms-4 fs-6">
-                <i class="bi bi-youtube me-2"></i>
+          <li className="mt-3">
+            <i className="bi bi-film me-2"></i> Best for content creation
+            <div className="row mt-2">
+              <div className="col-12 col-sm-4 ms-4 fs-6">
+                <i className="bi bi-youtube me-2"></i>
                 <a href="https://www.youtube.com/" style={{ color: "inherit" }}>
                   YouTube
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
-                <i class="bi bi-tiktok me-2"></i>
+              <div className="col-12 col-sm-4 ms-4 fs-6">
+                <i className="bi bi-tiktok me-2"></i>
                 <a href="https://www.tiktok.com/" style={{ color: "inherit" }}>
                   TikTok
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
-                <i class="bi bi-instagram me-2"></i>
+              <div className="col-12 col-sm-4 ms-4 fs-6">
+                <i className="bi bi-instagram me-2"></i>
                 <a
                   href="https://www.instagram.com/"
                   style={{ color: "inherit" }}
@@ -198,8 +183,8 @@ const About = ({ insights }) => {
                   Instagram
                 </a>
               </div>
-              <div class="col-12 col-sm-4 ms-4 fs-6">
-                <i class="bi bi-facebook me-2"></i>
+              <div className="col-12 col-sm-4 ms-4 fs-6">
+                <i className="bi bi-facebook me-2"></i>
                 <a
                   href="https://www.facebook.com/"
                   style={{ color: "inherit" }}
@@ -210,8 +195,8 @@ const About = ({ insights }) => {
             </div>
           </li>
 
-          <li class="mt-3">
-            <i class="bi bi-tv me-2"></i> Produce impactful voiceovers for
+          <li className="mt-3">
+            <i className="bi bi-tv me-2"></i> Produce impactful voiceovers for
             advertising
           </li>
         </ul>
@@ -220,23 +205,23 @@ const About = ({ insights }) => {
       <p className="card-text">
         <ul style={{ listStyleType: "none" }}>
           <li>
-            <i class="bi bi-lightning-fill me-2"></i> A fast and easy text to
+            <i className="bi bi-lightning-fill me-2"></i> A fast and easy text to
             speech converter.
           </li>
           <li>
-            <i class="bi bi-briefcase-fill me-2"></i> Free to use anywhere. No
+            <i className="bi bi-briefcase-fill me-2"></i> Free to use anywhere. No
             license required.
           </li>
           <li>
-            <i class="bi bi-globe2 me-2"></i> Supports multiple languages from
+            <i className="bi bi-globe2 me-2"></i> Supports multiple languages from
             around the world.
           </li>
           <li>
-            <i class="bi bi-sliders me-2"></i> Fine tune pitch and speed for
+            <i className="bi bi-sliders me-2"></i> Fine tune pitch and speed for
             customized audio.
           </li>
           <li>
-            <i class="bi bi-emoji-smile me-2"></i> Diverse selection of emotions
+            <i className="bi bi-emoji-smile me-2"></i> Diverse selection of emotions
             to express yourself.
           </li>
         </ul>
@@ -298,7 +283,7 @@ const About = ({ insights }) => {
       <h3 className="mt-5">Updates</h3>
       <p className="card-text">
         We are continuously working on adding more features to Voice Guru{" "}
-        <i class="bi bi-rocket me-2"></i>.
+        <i className="bi bi-rocket me-2"></i>.
       </p>
     </div>
   );

@@ -21,7 +21,7 @@ function App() {
         <Nav />
         <div
           className="container-fluid app-container"
-          style={{ minHeight: "100vh", marginBottom: "4rem" }}
+          style={{ marginBottom: "4rem", paddingTop: "120px" }}
         >
           <Routes>
             <Route path="/" element={<Home insights={appInsights} />} />

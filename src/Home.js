@@ -58,31 +58,16 @@ const Home = ({ insights }) => {
       screenResolution: window.screen.width + "x" + window.screen.height,
     };
 
-    fetch("https://ipapi.co/json/")
-      .then((response) => response.json())
-      .then((data) => {
-        insights.trackEvent({
-          name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_PAGE_LOADED,
-          properties: {
-            data: {
-              ...PAGE_DATA,
-              locationData: data,
-            },
-          },
-        });
-      })
-      .catch((error) => {
-        insights.trackEvent({
-          name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_PAGE_LOADED,
-          properties: {
-            data: {
-              ...PAGE_DATA,
-              locationData: "Error fetching location data",
-            },
-          },
-        });
-        console.error("Error:", error);
-      });
+    // Track page load without location data to avoid rate limiting
+    insights.trackEvent({
+      name: INSIGHTS_CONSTANTS.HOME_PAGE.HOME_PAGE_LOADED,
+      properties: {
+        data: {
+          ...PAGE_DATA,
+          locationData: "Location tracking disabled",
+        },
+      },
+    });
   }, [insights]);
 
   // page end event
@@ -194,15 +179,15 @@ const Home = ({ insights }) => {
 
   return (
     <div
-      className="container-fluid p-3 p-md-5 p-lg-5 home-container"
-      style={{ maxWidth: "748px", marginTop: "20px" }}
+      className="container-fluid px-3 px-md-5 px-lg-5 pb-3 pb-md-5 pb-lg-5 home-container"
+      style={{ maxWidth: "748px", marginTop: "0px" }}
     >
       <div className="card-body">
         <h1 className="mb-3 my-title">
           <img src="logo.png" alt="logo" width={"48px"} className="me-3" />{" "}
           Voice Guru{" "}
           <i
-            class="bi bi-check-circle-fill"
+            className="bi bi-check-circle-fill"
             style={{ marginLeft: "0.5rem", fontSize: "1rem", color: "#2962D7" }}
           ></i>
         </h1>
@@ -275,7 +260,7 @@ const Home = ({ insights }) => {
         {/* Settings */}
         <div className="p-4 card mt-5 shadow-sm">
           <h3 className="">
-            <i class="bi bi-magic me-2"></i> Settings
+            <i className="bi bi-magic me-2"></i> Settings
           </h3>
           {Languages && (
             <div className="row mb-4 g-2 g-md-3 g-lg-4 mt-2">
